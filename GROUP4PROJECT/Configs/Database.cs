@@ -4,6 +4,8 @@ namespace GROUP4PROJECT.Configs
 {
     public class Database
     {
+        public static NpgsqlConnection connection = new NpgsqlConnection(Database.GetConnectionString());
+
         public static string GetConnectionString()
         {
             string host = "db.lmchozvtyhzraokprqdq.supabase.co";
@@ -15,8 +17,11 @@ namespace GROUP4PROJECT.Configs
 
         public static NpgsqlConnection GetConnection()
         {
-            string connectionString = GetConnectionString();
-            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+            if (Database.connection.State == System.Data.ConnectionState.Open)
+            {
+                connection.Close();
+            }
+
             connection.Open();
 
             return connection;
