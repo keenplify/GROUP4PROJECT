@@ -27,4 +27,4 @@ namespace GROUP4PROJECT.Configs
             return connection;
         }
     }
-}
+} 
