@@ -1,9 +1,16 @@
-﻿namespace GROUP4PROJECT.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace GROUP4PROJECT.Models
 {
-    public class Administrator:Core.Model
+    public class Administrator
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FullName { get; set; }
+        public string id { get; set; }
+        public string created_at { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string full_name { get; set; }
     }
 }
