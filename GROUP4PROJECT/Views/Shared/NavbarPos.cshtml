@@ -8,6 +8,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/POS.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
@@ -20,25 +21,21 @@
             </button>
             <div class="collapse navbar-collapse  justify-content-end" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-
                     <li class="nav-item-end dropdown">
-
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-circle-user fa-2xl me-2"></i>Admin
                         </a>
-
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Action</a></li>
                             <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
                     </li>
-
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container-fluid body-content py-4">
+    <div class="py-4">
         @RenderBody()
         <hr />
         <footer>

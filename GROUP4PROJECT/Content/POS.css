@@ -1,0 +1,11 @@
+﻿:root {
+    --navbar-height: 74px;
+}
+
+.sidenav {
+    overflow-y: scroll;
+    position: sticky;
+    right: 0;
+    top: var(--navbar-height);
+    height: calc(100vh - var(--navbar-height));
+}
