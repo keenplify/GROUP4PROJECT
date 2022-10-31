@@ -18,7 +18,7 @@ namespace GROUP4PROJECT.Controllers
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                return Json(HttpHelpers.JsonError(422, "The parameters are incomplete."));
+                return Json(Http.JsonError(422, "The parameters are incomplete."));
                 // TODO - Handle incomplete parameters
             }
 
@@ -31,7 +31,7 @@ namespace GROUP4PROJECT.Controllers
 
             if (!BCrypt.Net.BCrypt.Verify(password, admin.Password))
             {
-                return Json(HttpHelpers.JsonError(401, "Wrong password."));
+                return Json(Http.JsonError(401, "Wrong password."));
                 // TODO - Handle wrong password redirect
             }
 

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace GROUP4PROJECT.Models
 {
-    public class Cashier
+    public class Cashier: Core.Model
     {
         public string Fullname { get; set; }
         public string Username { get; set; }
