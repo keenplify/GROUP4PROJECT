@@ -1,8 +1,10 @@
-﻿namespace GROUP4PROJECT.Core
+﻿using System;
+
+namespace GROUP4PROJECT.Core
 {
     public class Model
     {
-        public string Id { get; set; }
-        public string CreatedAt { get; set; }
+        public Guid Id { get; set; }
+        public string Created_At { get; set; }
     }
 }

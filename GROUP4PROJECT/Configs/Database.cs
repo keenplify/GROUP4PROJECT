@@ -4,7 +4,7 @@ namespace GROUP4PROJECT.Configs
 {
     public class Database
     {
-        public static NpgsqlConnection connection = new NpgsqlConnection(Database.GetConnectionString());
+        public static NpgsqlConnection connection = new NpgsqlConnection(GetConnectionString());
 
         public static string GetConnectionString()
         {
@@ -16,7 +16,7 @@ namespace GROUP4PROJECT.Configs
         }
 
         public static NpgsqlConnection GetConnection()
-        {
+        { 
             if (Database.connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
