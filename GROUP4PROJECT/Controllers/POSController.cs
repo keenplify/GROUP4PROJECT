@@ -13,5 +13,15 @@ namespace GROUP4PROJECT.Controllers
         {
             return View();
         }
+
+
+        public ActionResult QRScanner()
+        {
+            return View();
+        }
+        public ActionResult LoginPOS()
+        {
+            return View();
+        }
     }
 }
