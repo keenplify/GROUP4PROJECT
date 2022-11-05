@@ -3,7 +3,7 @@ using System.Web.Optimization;
 
 namespace GROUP4PROJECT
 {
-    public class BundleConfig
+    public class BundleConfig2
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
@@ -19,13 +19,14 @@ namespace GROUP4PROJECT
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));   
-            
+                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/bundles/chartjs").Include(
+                       "~/Scripts/chartjs/chartjs.min.js"));
         }
     }
 }
