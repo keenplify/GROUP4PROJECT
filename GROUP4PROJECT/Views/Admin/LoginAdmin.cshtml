@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "LoginAdmin";
+    Layout = "~/Views/Shared/LoginAdmin.cshtml";
+ 
+}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-6 py-2">
+            <h3>
+                Start your work with a sip.
+            </h3>
+            <div class="text-center py-4 mt-1">
+                <img src="~/Image/LoginForm-CoffeeSpilling.svg" class="img-fluid w-50" ondragstart="return false;" />
+            </div>
+        </div>
+
+
+        <div class="col-lg-5 m-auto ">
+            <div class=" col-md-12 rounded-5 bg-white shadow-lg p-4">
+                <img src="~/Image/LoginForm-LogoText.svg" class="img-fluid m-2" width="55" />
+
+                <form class="p-2 m-2 ">
+                    <label for="exampleInputPassword1" class="form-label">Username</label>
+                    <div class="input-group flex-nowrap mb-2 ">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" class="form-control w-100 " placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                    </div>
+
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <div class=" input-group flex-nowrap mb-3">
+                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+

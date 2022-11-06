@@ -164,20 +164,29 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\Admin-EmployeeNav.svg" />
+    <Content Include="Image\Admin-EmployeeNavActive.svg" />
+    <Content Include="Image\Admin-GraphNav.svg" />
+    <Content Include="Image\Admin-GraphNavActive.svg" />
+    <Content Include="Image\Admin-ProductNav.svg" />
+    <Content Include="Image\Admin-ProductNavActive.svg" />
     <Content Include="Image\Bean There - Mug 2 - Black.png" />
     <Content Include="Image\Bean There - Paper Cup - White.png" />
     <Content Include="Image\Been There - Donut Box - White.png" />
+    <Content Include="Image\LoginForm-Admin.svg" />
     <Content Include="Image\LoginForm-Cashier.svg" />
     <Content Include="Image\LoginForm-CoffeeSpilling.svg" />
     <Content Include="Image\LoginForm-LogoText.svg" />
     <Content Include="Image\Logo-BeanThere-White.svg" />
     <Content Include="Content\POS.css" />
     <Content Include="Image\Medium Size Paper Coffee Cup with Donut.png" />
+    <Content Include="Image\transparent-warning-caution-triangle-mark-red-icon-116405203248pjnfzws9m-removebg-preview.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
@@ -209,8 +218,9 @@
     <Content Include="Views\POS\QRScanner.cshtml" />
     <Content Include="Views\POS\LoginPOS.cshtml" />
     <Content Include="Views\Shared\NavbarCashier.cshtml" />
-    <Content Include="Views\POS\Delete.cshtml" />
-    <Content Include="Views\POS\Checkout.cshtml" />
+    <Content Include="Views\Admin\LoginAdmin.cshtml" />
+    <Content Include="Views\Shared\LoginAdmin.cshtml" />
+    <Content Include="Views\Admin\EmployeeAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
