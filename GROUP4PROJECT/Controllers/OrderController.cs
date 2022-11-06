@@ -11,7 +11,7 @@ using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
 using System.Diagnostics;
 
-namespace GROUP4PROJECT.Controllers.Api
+namespace GROUP4PROJECT.Controllers
 {
     public class OrderController : Controller
     {

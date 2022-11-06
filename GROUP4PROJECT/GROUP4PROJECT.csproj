@@ -176,14 +176,11 @@
     <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\Api\OrderController.cs" />
-    <Compile Include="Controllers\Api\ProductsController.cs" />
-    <Compile Include="Controllers\Api\AdminController.cs" />
-    <Compile Include="Controllers\Api\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Configs\Database.cs" />
     <Compile Include="Core\Model.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Configs\Database.cs" />
     <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Global.asax.cs">
@@ -253,13 +250,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\CoreModel\" />
     <Folder Include="Views\Database\" />
-    <Folder Include="Views\Order\" />
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Database\" />
     <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

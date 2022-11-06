@@ -10,7 +10,7 @@ using SqlKata.Execution;
 using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
 
-namespace GROUP4PROJECT.Controllers.Api
+namespace GROUP4PROJECT.Controllers
 {
     public class ProductsController : Controller
     {
