@@ -17,5 +17,14 @@ namespace GROUP4PROJECT.Controllers
         {
             return View();
         }
+
+        public ActionResult LoginAdmin()
+        {
+            return View();
+        }
+        public ActionResult EmployeeAdmin()
+        {
+            return View();
+        }
     }
 }

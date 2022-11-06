@@ -30,14 +30,14 @@
                     </div>
 
                     <div class="col-4 text-end">
-                        @Html.Partial("QRScanner")
+                        <a data-bs-toggle="modal" data-bs-target="#QRScannerModal"><i class="fa-solid fa-qrcode fa-2x"></i></a>
                     </div>
 
                 </div>
 
 
             </div>
-            
+
 
             <div class="py-2  ">
 
@@ -404,7 +404,7 @@
                     <div class="d-flex w-100 justify-content-between align-items-start">
                         <span class="fw-bold">Kopiko Blanca</span>
                         <span class="badge bg-transparent text-black">Qty:1</span>
-                        <span> @Html.Partial("Delete")</span>
+                        <span><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
                     </div>
                     <small class="fw-light">Remarks:</small><br />
                     <div class="row">
@@ -421,7 +421,7 @@
                     <div class="d-flex w-100 justify-content-between align-items-start">
                         <span class="fw-bold">Monay Matigas</span>
                         <span class="badge bg-transparent text-black">Qty:1</span>
-                        <span> @Html.Partial("Delete")</span>
+                        <span><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
                     </div>
                     <small class="fw-light">Remarks:</small><br />
                     <div class="row">
@@ -438,7 +438,7 @@
                     <div class="d-flex w-100 justify-content-between align-items-start">
                         <span class="fw-bold">Red Horse</span>
                         <span class="badge bg-transparent text-black">Qty:2</span>
-                        <span> @Html.Partial("Delete")</span>
+                        <span> <a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
                     </div>
                     <small class="fw-light">Remarks:</small><br />
                     <div class="row">
@@ -457,7 +457,7 @@
             <footer class="mt-auto w-100 " style="position: sticky; bottom: 0; min-height: 10em; background-color: hsl(0, 0%, 96%)">
 
 
-              
+
                 <div class="container-fluid p-3">
                     <div class="row">
                         <div class="col-9">
@@ -468,9 +468,9 @@
                             <small class="fw-bold">10</small>
 
                         </div>
-                    
 
-                    
+
+
                         <div class="col-9">
                             <small class="fw-bold">Total Price:</small>
 
@@ -479,30 +479,35 @@
                             <small class="fw-bold">P900</small>
 
                         </div>
-                    
 
 
-                    
-                        <div class="col-9">
+
+
+                        <div class="col-7">
                             <small class="fw-bold">Received Amount:</small>
 
                         </div>
-                        <div class="col-3">
-                            <small class="fw-bold">P1000</small>
+                        <div class="col-5">
+                            <div class="input-group input-group-sm mb-3">
+                               
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                            </div>
 
                         </div>
-                            
-                        <div class="text-end py-2">
 
-                            @Html.Partial("Checkout")
+                        <div class="text-end">
+
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#CheckoutModal">
+                                Checkout
+                            </button>
                         </div>
-                  
-                    
+
+
+                    </div>
+
+
+
                 </div>
-
-
-
-</div>
 
 
 
@@ -515,4 +520,151 @@
     </div>
 
 
+</div>
+
+
+<!-- QRScanner -->
+<div class="modal fade" id="QRScannerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">QRSCANNER</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Checkout -->
+<div class="modal fade" id="CheckoutModal" tabindex="-1" aria-labelledby="CheckoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                <div class="container ">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">Items</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Prices</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Kopiko Blanca</th>
+                                <td>2</td>
+                                <td>50</td>
+                                <td>P100</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Monay Matigas</th>
+                                <td>1</td>
+                                <td>P450</td>
+                                <td>P450</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Red Horse</th>
+                                <td>2</td>
+                                <td>P60</td>
+                                <td>P330</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-9">
+                            <small class="fw-bold">Total Items:</small>
+
+                        </div>
+                        <div class="col-3">
+                            <small class="fw-bold">10</small>
+
+                        </div>
+
+
+
+                        <div class="col-9">
+                            <small class="fw-bold">Received Amount:</small>
+
+                        </div>
+                        <div class="col-3">
+                            <small class="fw-bold">P1000</small>
+
+                        </div>
+
+
+
+
+
+
+
+                        <div class="col-5 py-1">
+                            <p class="fw-bold">Change:</p>
+
+                        </div>
+                        <div class="col-4 py-1">
+                            <p class="fw-bold">P100</p>
+
+                        </div>
+
+                        <div class="col-2 text-end">
+
+                            <button type="button" class="btn btn-success btn-sm">
+                                Checkout
+                            </button>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+           
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete-->
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+                <img src="~/Image/transparent-warning-caution-triangle-mark-red-icon-116405203248pjnfzws9m-removebg-preview.png" class="img-fluid w-25 mx-auto d-block"/>
+                <h5 class="p-3 text-center">Are you sure you want to delete this Item?</h5>
+                <div class="m-auto">
+                    <p class="text-center w-75 mx-auto d-block">Do you really want to delete this file. This file cannot be store.</p>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>
