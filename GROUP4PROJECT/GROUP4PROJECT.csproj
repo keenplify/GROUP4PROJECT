@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
@@ -181,6 +182,10 @@
     <Compile Include="Controllers\Api\HomeController.cs" />
     <Compile Include="Configs\Database.cs" />
     <Compile Include="Core\Model.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Configs\Database.cs" />
+    <Compile Include="Controllers\POSController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +208,15 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Compile Include="Helpers\Http.cs" />
+    <Content Include="Image\Bean There - Mug 2 - Black.png" />
+    <Content Include="Image\Bean There - Paper Cup - White.png" />
+    <Content Include="Image\Been There - Donut Box - White.png" />
+    <Content Include="Image\LoginForm-Cashier.svg" />
+    <Content Include="Image\LoginForm-CoffeeSpilling.svg" />
+    <Content Include="Image\LoginForm-LogoText.svg" />
+    <Content Include="Image\Logo-BeanThere-White.svg" />
+    <Content Include="Content\POS.css" />
+    <Content Include="Image\Medium Size Paper Coffee Cup with Donut.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
@@ -226,12 +240,26 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\NavbarAdmin.cshtml" />
+    <Content Include="Views\Admin\Product.cshtml" />
+    <Content Include="Views\Shared\NavbarPos.cshtml" />
+    <Content Include="Views\POS\Index.cshtml" />
+    <Content Include="Views\POS\QRScanner.cshtml" />
+    <Content Include="Views\POS\LoginPOS.cshtml" />
+    <Content Include="Views\Shared\NavbarCashier.cshtml" />
+    <Content Include="Views\POS\Delete.cshtml" />
+    <Content Include="Views\POS\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CoreModel\" />
     <Folder Include="Views\Database\" />
     <Folder Include="Views\Order\" />
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\Database\" />
+    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
