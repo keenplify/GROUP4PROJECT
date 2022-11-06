@@ -71,6 +71,7 @@ namespace GROUP4PROJECT.Controllers
 
             db.Query("orders_tbl").Insert(new {
                 Id = newOrderGuid,
+                order.Status,
                 order.CustomerName
             });
 

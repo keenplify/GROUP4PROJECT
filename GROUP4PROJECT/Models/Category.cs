@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace GROUP4PROJECT.Models
 {
-    public class Product : Core.Model
+    public class Category:Core.Model
     {
         public string Name { get; set; }
-        public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public float Price { get; set; }
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
-
+        public IEnumerable<Models.Product> Products { get; set; }
     }
 }

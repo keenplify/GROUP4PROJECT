@@ -8,11 +8,11 @@ namespace GROUP4PROJECT.Configs
 
         public static string GetConnectionString()
         {
-            string host = "db.lmchozvtyhzraokprqdq.supabase.co";
+            string host = SupabaseConfig.db_host;
             string username = "postgres";
-            string password = "xtTNvEdWTMB7QFb4";
+            string password = SupabaseConfig.password;
             string database = "postgres";
-            return $"Host={host};Username={username};password={password};Database={database}";
+            return $"Host=db.{host};Username={username};password={password};Database={database}";
         }
 
         public static NpgsqlConnection GetConnection()

@@ -6,9 +6,11 @@ namespace GROUP4PROJECT.Validations
     {
         public ProductValidator(bool isPartial=false)
         {
-            RuleFor(product => product.Price).NotNull().GreaterThan(0);
-            RuleFor(product => product.Name).NotNull().MinimumLength(1);
-            RuleFor(product => product.Description).NotNull().MinimumLength(1);
+            RuleFor(product => product.Price).NotEmpty().GreaterThan(0);
+            RuleFor(product => product.Name).NotEmpty();
+            RuleFor(product => product.Description).NotEmpty();
+            RuleFor(product => product.CategoryId).NotEmpty();
+            RuleFor(product => product.ImageUrl).NotEmpty();
         }
     }
 }

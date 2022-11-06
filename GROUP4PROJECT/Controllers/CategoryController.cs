@@ -12,7 +12,7 @@ using GROUP4PROJECT.Helpers;
 
 namespace GROUP4PROJECT.Controllers
 {
-    public class ProductsController : Controller
+    public class CategoryController : Controller
     {
         [HttpGet]
         public ActionResult Index()
@@ -22,14 +22,14 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            IEnumerable<Product> products = db.Query("products_tbl").Where("IsDeleted", false).Get<Product>();
+            IEnumerable<Category> categories = db.Query("categories_tbl").Where("IsDeleted", false).Get<Category>();
 
-            foreach (var product in products)
+            foreach (var category in categories)
             {
-                product.Category = db.Query("categories_tbl").Where("Id", product.CategoryId).First<Category>();
+                category.Products = db.Query("products_tbl").Where("CategoryId", category.Id).Get<Product>();
             }
 
-            return Json(products, JsonRequestBehavior.AllowGet);
+            return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -40,16 +40,16 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            var product = db.Query("products_tbl").Where("Id", id).Where("IsDeleted", false).First<Product>();
-            product.Category = db.Query("categories_tbl").Where("Id", product.CategoryId).First<Category>();
+            var category = db.Query("categories_tbl").Where("Id", id).Where("IsDeleted", false).First<Category>();
+            category.Products = db.Query("categories_tbl").Where("CategoryId", category.Id).Get<Product>();
 
-            return Json(product, JsonRequestBehavior.AllowGet);
+            return Json(category, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Index(Product product)
+        public ActionResult Index(Category category)
         {
-            var results = new ProductValidator().Validate(product);
+            var results = new CategoryValidator().Validate(category);
 
             if (!results.IsValid)
             {
@@ -61,20 +61,16 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            product.Id = Guid.NewGuid();
-            db.Query("products_tbl").Insert(new {
-                product.Name,
-                product.Price,
-                product.Description,
-                product.CategoryId,
-                product.ImageUrl
+            category.Id = Guid.NewGuid();
+            db.Query("categories_tbl").Insert(new { 
+                category.Name,
+                category.ImageUrl,
             });
 
-            return Json(product);
+            return Json(category);
         }
 
-        [HttpPut]
-        [HttpPatch]
+        [HttpPost]
         public ActionResult Update(Guid id, Product product)
         {
             var results = new ProductValidator(true).Validate(product);
