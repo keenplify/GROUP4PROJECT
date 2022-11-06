@@ -30,13 +30,16 @@ namespace GROUP4PROJECT.Controllers
         public ActionResult EmployeeAdmin()
         {
             return View();
+        }
 
         [HttpPost]
-        public JsonResult HandleLogin(string username, string password)
+        public ActionResult HandleLogin(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                return Json(Http.JsonError(422, "The parameters are incomplete."));
+                ViewBag.Error = "The parameters are incomplete.";
+                return View("LoginAdmin");
+                //return Json(Http.JsonError(422, "The parameters are incomplete."));
                 // TODO - Handle incomplete parameters
             }
 
@@ -54,7 +57,7 @@ namespace GROUP4PROJECT.Controllers
             }
 
             Session["Admin"] = admin;
-            return Json(admin);
+            return Redirect("Product");
             // TODO - Handle login redirection
         }
     }
