@@ -9,8 +9,9 @@ using SqlKata.Compilers;
 using SqlKata.Execution;
 using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
+using System.Diagnostics;
 
-namespace GROUP4PROJECT.Controllers
+namespace GROUP4PROJECT.Controllers.Api
 {
     public class OrderController : Controller
     {
@@ -22,7 +23,18 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
+
             IEnumerable<Order> orders = db.Query("orders_tbl").Get<Order>();
+
+            foreach (var order in orders)
+            {
+                order.OrderProducts = db.Query("order_products_tbl").Where("OrderId", order.Id).Get<OrderProduct>();
+
+                foreach (var orderProduct in order.OrderProducts)
+                {
+                    orderProduct.Product = db.Query("products_tbl").Where("Id", orderProduct.ProductId).First<Product>();
+                }
+            }
 
             return Json(orders, JsonRequestBehavior.AllowGet);
         }
@@ -55,9 +67,33 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            db.Query("orders_tbl").Insert(order);
+            var newOrderGuid = Guid.NewGuid();
 
-            return Json(order);
+            db.Query("orders_tbl").Insert(new {
+                Id = newOrderGuid,
+                order.CustomerName
+            });
+
+            foreach (var orderProduct in order.OrderProducts)
+            {
+                db.Query("order_products_tbl").Insert(new { 
+                    orderProduct.Quantity,
+                    orderProduct.Remarks,
+                    orderProduct.ProductId,
+                    OrderId = newOrderGuid,
+                });
+            }
+
+            var newOrder = db.Query("orders_tbl").Where("Id", newOrderGuid).First<Order>();
+
+            newOrder.OrderProducts = db.Query("order_products_tbl").Where("OrderId", newOrderGuid).Get<OrderProduct>();
+
+            foreach (var orderProduct in newOrder.OrderProducts)
+            {
+                orderProduct.Product = db.Query("products_tbl").Where("Id", orderProduct.ProductId).First<Product>();
+            }
+
+            return Json(newOrder);
         }
 
         [HttpPost]
@@ -75,7 +111,9 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            db.Query("orders_tbl").Where("Id", id).Update(order);
+            db.Query("orders_tbl").Where("Id", id).Update(new {
+                order.CustomerName
+            });
 
             return Json(order);
         }

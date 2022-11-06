@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GROUP4PROJECT.Controllers
+namespace GROUP4PROJECT.Controllers.Api
 {
     public class HomeController : Controller
     {

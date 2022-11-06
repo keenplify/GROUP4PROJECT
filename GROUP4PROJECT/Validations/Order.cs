@@ -7,7 +7,7 @@ namespace GROUP4PROJECT.Validations
         public OrderValidator(bool isPartial = false)
         {
             RuleFor(order => order.CustomerName).NotNull().MinimumLength(1).MaximumLength(20);
-            RuleFor(order => order.OrderProducts).NotNull();
+            RuleForEach(order => order.OrderProducts).SetValidator(new OrderProductValidator()).NotNull();
         }
     }
 }

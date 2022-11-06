@@ -175,10 +175,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Api\OrderController.cs" />
+    <Compile Include="Controllers\Api\ProductsController.cs" />
+    <Compile Include="Controllers\Api\AdminController.cs" />
+    <Compile Include="Controllers\Api\HomeController.cs" />
     <Compile Include="Configs\Database.cs" />
     <Compile Include="Core\Model.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,6 +191,7 @@
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\OrderProduct.cs" />
     <Compile Include="Validations\Order.cs" />
     <Compile Include="Validations\Product.cs" />
     <Compile Include="Validations\Administrator.cs" />

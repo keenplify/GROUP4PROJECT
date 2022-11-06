@@ -1,8 +1,10 @@
-﻿namespace GROUP4PROJECT.Models
+﻿using System.Collections.Generic;
+
+namespace GROUP4PROJECT.Models
 {
     public class Order:Core.Model
     {
         public string CustomerName { get; set; }
-        public OrderProduct[] OrderProducts { get; set; }
+        public IEnumerable<OrderProduct> OrderProducts { get; set; }
     }
 }

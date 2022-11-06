@@ -9,7 +9,7 @@ using SqlKata.Compilers;
 using SqlKata.Execution;
 using GROUP4PROJECT.Helpers;
 
-namespace GROUP4PROJECT.Controllers
+namespace GROUP4PROJECT.Controllers.Api
 {
     public class AdminController : Controller
     {
