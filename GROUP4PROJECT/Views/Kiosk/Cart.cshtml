@@ -35,20 +35,20 @@
             #onLoad{
                 animation: 0.2s ease-out 0s 1 Opacity;
             }
-            @@font-face {
+            /*@@font-face {
                 font-family: Product-Sans-Regular;
                 src: url(~/Kiosk/fonts/Product-Sans-Regular.ttf);
             }
             @@font-face {
                 font-family: Product-Sans-Bold;
                 src: url(~/Kiosk/fonts/Product-Sans-Bold.ttf);
-            }
+            }*/
             th{
-                font-family: Product-Sans-Bold;
+                /*font-family: Product-Sans-Bold;*/
                 font-size: 20px;
             }
             tr{
-                font-family: Product-Sans-Bold;
+                /*font-family: Product-Sans-Bold;*/
             }
             #checkoutButton{
                 background-color: #BC6E19;
@@ -95,11 +95,11 @@
             </div>
             <!--End Cart-->
             <!--Cart Info-->
-            <div class="col-sm-3 g-0 " id="onLoadSlideUp">
-                <div class="text-bg-light pt-3 pb-2" style="font-family: Product-Sans-Bold;">
+            <div class="col-sm-3 g-0 d-flex flex-column" id="onLoadSlideUp" style="height:calc(100vh - 75px)">
+                <div class="text-bg-light pt-3 pb-2" >
                     <h3 class="text-center"><i class="fa-solid fa-cart-shopping me-3"></i>Cart</h3>
                 </div>
-                <div class=" text-bg-dark ps-2 pe-2" style="font-family: Product-Sans-Bold; height:485px;">
+                <div class=" text-bg-dark ps-2 pe-2 flex-grow-1">
                     <table class="text-bg-dark table table-borderless" style="height: 375px;">
                         <tbody>
                             <tr>

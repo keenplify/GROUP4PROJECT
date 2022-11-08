@@ -35,17 +35,17 @@
             #onLoad{
                 animation: 0.2s ease-out 0s 1 Opacity;
             }
-            @@font-face {
+            /*@@font-face {
                 font-family: Product-Sans-Regular;
                 src: url(~/Kiosk/fonts/Product-Sans-Regular.ttf);
             }
             @@font-face {
                 font-family: Product-Sans-Bold;
                 src: url(~/Kiosk/fonts/Product-Sans-Bold.ttf);
-            }
+            }*/
             .fixed-bottom {
                 background-color: #BC6E19;
-                font-family: Product-Sans-Regular;
+                /*font-family: Product-Sans-Regular;*/
             }
             .btn{
                 width: 150px;
@@ -57,12 +57,12 @@
             a:hover{
             color: black;
             }
-            h3{
+            /*h3{
                 font-family: Product-Sans-Bold;
-            }
-            h5{
+            }*/
+            /*h5{
                 font-family: Product-Sans-Regular;
-            }
+            }*/
             html {
                 scroll-behavior: smooth;
             }
@@ -106,7 +106,7 @@
             <div class="col-sm-11">
                 <div class="container-fluid mt-3 ps-3 mb-5">
                     <!--Search Bar-->
-                    <div class="input-group w-25 float-start mt-3 ms-2" style="font-family: Product-Sans-Regular;">
+                    <div class="input-group w-25 float-start mt-3 ms-2">
                         <span class="input-group-text bg-white border border-end-0 border-0">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </span>
@@ -174,7 +174,7 @@
                         </h5>
                     </div>
                     <div class="col-sm  ms-4 me-4">
-                        <button class="btn btn-dark float-end" type="button" data-bs-toggle="modal" data-bs-target="#cancelConfirmation" style="font-family: Product-Sans-Bold;">Cancel Order</button>
+                        <button class="btn btn-dark float-end" type="button" data-bs-toggle="modal" data-bs-target="#cancelConfirmation">Cancel Order</button>
                     </div>
 
                 </div>
@@ -183,7 +183,7 @@
     </div>
     <!--NavBar on bottom end-->
     <!--Modal for Confirmation-->
-    <div class="modal fade" id="cancelConfirmation" style="font-family: Product-Sans-Bold;">
+    <div class="modal fade" id="cancelConfirmation">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -203,7 +203,7 @@
     </div>
     <!--End Modal for Confirmation-->
     <!--Modal for Product Description-->
-    <div class="modal fade" id="productDescription" style="font-family: Product-Sans-Bold;">
+    <div class="modal fade" id="productDescription">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
