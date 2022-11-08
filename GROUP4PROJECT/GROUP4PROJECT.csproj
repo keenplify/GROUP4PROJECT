@@ -217,7 +217,9 @@
     <Compile Include="Configs\Database.cs" />
     <Compile Include="Configs\Storage.cs" />
     <Compile Include="Configs\Supabase.cs" />
+    <Compile Include="Controllers\BaristaController.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\KioskController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -268,9 +270,22 @@
     <Content Include="Content\POS.css" />
     <Content Include="Image\Medium Size Paper Coffee Cup with Donut.png" />
     <Content Include="Image\transparent-warning-caution-triangle-mark-red-icon-116405203248pjnfzws9m-removebg-preview.png" />
+    <Content Include="Kiosk\icon\Kiosk-Dine-In.svg" />
+    <Content Include="Kiosk\icon\Kiosk-Take-Out.svg" />
+    <Content Include="Kiosk\icon\Kiosk_Cart-Remove.svg" />
+    <Content Include="Kiosk\img\Kiosk-Coffee-Selection.png" />
+    <Content Include="Kiosk\img\Kiosk-CoffeeDonut-Selection.png" />
+    <Content Include="Kiosk\img\Kiosk-coffeeNav.png" />
+    <Content Include="Kiosk\img\Kiosk-Donut-Selection.png" />
+    <Content Include="Kiosk\img\Kiosk-donutAndCoffeeNav.png" />
+    <Content Include="Kiosk\img\Kiosk-donutNav.png" />
+    <Content Include="Kiosk\img\Kiosk-RecieptPage.png" />
+    <Content Include="Kiosk\img\Logo-BeanThere-Default.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="Kiosk\fonts\Product-Sans-Bold.ttf" />
+    <Content Include="Kiosk\fonts\Product-Sans-Regular.ttf" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -302,13 +317,18 @@
     <Content Include="Views\Admin\LoginAdmin.cshtml" />
     <Content Include="Views\Shared\LoginAdmin.cshtml" />
     <Content Include="Views\Admin\EmployeeAdmin.cshtml" />
+    <Content Include="Views\Kiosk\Index.cshtml" />
+    <Content Include="Views\Kiosk\Menu.cshtml" />
+    <Content Include="Views\Kiosk\Receipt.cshtml" />
+    <Content Include="Views\Kiosk\Cart.cshtml" />
+    <Content Include="Views\Shared\_Blank.cshtml" />
+    <Content Include="Views\Barista\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="Views\CoreModel\" />
     <Folder Include="Views\Database\" />
-    <Folder Include="Views\NewFolder1\" />
     <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
