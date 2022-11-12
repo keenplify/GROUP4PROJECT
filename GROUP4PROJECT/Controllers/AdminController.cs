@@ -50,7 +50,7 @@ namespace GROUP4PROJECT.Controllers
 
             var admin = db.Query("administrators_tbl").Where("Username", username).FirstOrDefault<Administrator>();
 
-            if (string.IsNullOrEmpty(username))
+            if (admin == null)
                 {
                 return Redirect("LoginAdmin?error=wrongusername");
             }
