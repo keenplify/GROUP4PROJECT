@@ -252,6 +252,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\4fc20722-5368-e911-80d5-b82a72db46f21-680x680pr.png" />
     <Content Include="Image\Admin-EmployeeNav.svg" />
     <Content Include="Image\Admin-EmployeeNavActive.svg" />
     <Content Include="Image\Admin-GraphNav.svg" />
