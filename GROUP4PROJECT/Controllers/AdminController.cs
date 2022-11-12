@@ -37,8 +37,8 @@ namespace GROUP4PROJECT.Controllers
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                
-                return Redirect("LoginAdmin?error=incomplete");
+                ViewBag.Error = "The parameters are incomplete.";
+                return View("LoginAdmin");
                 //return Json(Http.JsonError(422, "The parameters are incomplete."));
                 // TODO - Handle incomplete parameters
             }
@@ -48,19 +48,12 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            var admin = db.Query("administrators_tbl").Where("Username", username).FirstOrDefault<Administrator>();
-
-            if (string.IsNullOrEmpty(username))
-                {
-                return Redirect("LoginAdmin?error=wrongusername");
-            }
-
+            var admin = db.Query("administrators_tbl").Where("username", username).First<Administrator>();
 
             if (!BCrypt.Net.BCrypt.Verify(password, admin.Password))
             {
-
-                return Redirect("LoginAdmin?error=wrongpassword");
-                
+                return Json(Http.JsonError(401, "Wrong password."));
+                // TODO - Handle wrong password redirect
             }
 
             Session["Admin"] = admin;
