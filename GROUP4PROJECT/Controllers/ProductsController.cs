@@ -95,7 +95,7 @@ namespace GROUP4PROJECT.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(Guid id, string redirect)
         {
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
@@ -103,6 +103,11 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             db.Query("products_tbl").Where("Id", id).Update(new { IsDeleted = true });
+
+            if (!string.IsNullOrEmpty(redirect))
+            {
+                return Redirect(redirect);
+            }
 
             return Json(new
             {

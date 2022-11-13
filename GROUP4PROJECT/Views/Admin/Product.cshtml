@@ -13,7 +13,7 @@
                         <th scope="col" class="p-3">
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-transparent dropdown-toggle fw-bold" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                 All Category
+                                    All Category
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                     <li><a class="dropdown-item active" href="#">Action</a></li>
@@ -37,17 +37,22 @@
                 <tbody>
                     @foreach (var product in ViewBag.Products)
                     {
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail" style="max-width: 10em;" /></td>
-                        <td scope="row">1</td>
-                        <td>@product.Name</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td>
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
+                        <tr>
+                            @if (!string.IsNullOrEmpty(product.ImageUrl))
+                            {
+                                <td>
+                                    <img src="@product.ImageUrl" class="img-fluid img-thumbnail" style="max-width: 10em;" />
+                                </td>
+                            }
+                            <td scope="row">@product.Id</td>
+                            <td>@product.Name</td>
+                            <td>₱@product.Price</td>
+                            <td>@product.Description</td>
+                            <td>
+                                <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
+                                <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal-@product.Id"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -95,10 +100,10 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="categoryInputEmail1" class="form-label">Add Category</label>
-                                    <input type="text" class="form-control" id="categoryInputEmail1" aria-describedby="categoryHelp" placeholder="Add Category"> 
-                                    
+                                    <input type="text" class="form-control" id="categoryInputEmail1" aria-describedby="categoryHelp" placeholder="Add Category">
+
                                 </div>
-                             
+
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
 
@@ -131,34 +136,44 @@
 
 
 
-        </div>
     </div>
+</div>
 
 
 </div>
 
-<!-- Delete-->
-<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body ">
 
-                <img src="~/Image/transparent-warning-caution-triangle-mark-red-icon-116405203248pjnfzws9m-removebg-preview.png" class="img-fluid w-25 mx-auto d-block" />
-                <h5 class="p-3 text-center">Are you sure you want to delete this Item?</h5>
-                <div class="m-auto">
-                    <p class="text-center w-75 mx-auto d-block">Do you really want to delete this file. This file cannot be store.</p>
+@foreach (var product in ViewBag.Products)
+{
+    <!-- Delete-->
+    <div class="modal fade" id="DeleteModal-@product.Id" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+
+                    <img src="~/Image/transparent-warning-caution-triangle-mark-red-icon-116405203248pjnfzws9m-removebg-preview.png" class="img-fluid w-25 mx-auto d-block" />
+                    <h5 class="p-3 text-center">Are you sure you want to delete @product.Name?</h5>
+                    <div class="m-auto">
+                        <p class="text-center w-75 mx-auto d-block">Do you really want to delete this file. This file cannot be store.</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    @using (Html.BeginForm("Delete", "Products", FormMethod.Post))
+                    {
+                        <input type="hidden" name="id" value="@product.Id" />
+                        <input type="hidden" name="redirect" value="/Admin/Product" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
                 </div>
             </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete</button>
-            </div>
         </div>
     </div>
-</div>
+}
+
 
 
