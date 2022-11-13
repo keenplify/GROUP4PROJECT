@@ -23,23 +23,46 @@
             <div class=" col-md-12 rounded-5 bg-white shadow-lg p-4">
                 <img src="~/Image/LoginForm-LogoText.svg" class="img-fluid m-2" width="55" />
 
-                <form class="p-2 m-2 ">
-                    <label for="exampleInputPassword1" class="form-label">Username</label>
-                    <div class="input-group flex-nowrap mb-2 ">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" class="form-control w-100 " placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
-                    </div>
+                @using (Html.BeginForm("HandleLogin", "Cashier", FormMethod.Post))
 
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <div class=" input-group flex-nowrap mb-3">
-                        <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
-                    </div>
+                {
 
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    <div class="p-2 m-2 ">
+
+                        @if (Context.Request.QueryString["error"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @if (Context.Request.QueryString["error"] == "incomplete")
+                                {
+                                    <p>Unavailable to Login. Please Try Again.</p>
+                                }
+                                else if (Context.Request.QueryString["error"] == "wrongpassword")
+                                {
+                                    <p>Wrong Password</p>
+                                }
+                                else if (Context.Request.QueryString["error"] == "wrongusername")
+                                {
+                                    <p>Wrong Username</p>
+                                }
+                            </div>
+                        }
+                        <label for="exampleInputPassword1" class="form-label">Username</label>
+                        <div class="input-group flex-nowrap mb-2 ">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" class="form-control w-100 " placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="username">
+                        </div>
+
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <div class=" input-group flex-nowrap mb-3">
+                            <span class="input-group-text" id="addon-wrapping"><i class="fa-solid fa-lock"></i></span>
+                            <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" name="password">
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
                     </div>
-                </form>
+                }
 
             </div>
 
