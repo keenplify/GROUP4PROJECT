@@ -1,11 +1,7 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/NavbarAdmin.cshtml";
     @Scripts.Render("~/bundles/modernizr")
-
-
-
 }
 <div class="container-fluid w-100">
     <div class="row">
@@ -39,10 +35,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach (var product in ViewBag.Products)
+                    {
                     <tr>
                         <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail" style="max-width: 10em;" /></td>
                         <td scope="row">1</td>
-                        <td>Kapeng Matapang</td>
+                        <td>@product.Name</td>
                         <td>300</td>
                         <td>Basta Matapang</td>
                         <td>
@@ -50,72 +48,7 @@
                             <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail " style="max-width: 10em;"  /></td>
-                        <td scope="row">1</td>
-                        <td>Kapeng Matapang</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td>
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail " style="max-width: 10em;"  /></td>
-                        <td scope="row">1</td>
-
-
-                        <td>Kapeng Matapang</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td >
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail " style="max-width: 10em;" /></td>
-                        <td scope="row">1</td>
-
-
-                        <td>Kapeng Matapang</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td>
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail" style="max-width: 10em;"  /></td>
-                        <td scope="row">1</td>
-
-
-                        <td>Kapeng Matapang</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td>
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><img src="~/Image/Bean There - Mug 2 - Black.png" class="img-fluid img-thumbnail " style="max-width: 10em;" /></td>
-                        <td scope="row">1</td>
-
-
-                        <td>Kapeng Matapang</td>
-                        <td>300</td>
-                        <td>Basta Matapang</td>
-                        <td>
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a> &nbsp; &nbsp;
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
+                    }
                 </tbody>
             </table>
 

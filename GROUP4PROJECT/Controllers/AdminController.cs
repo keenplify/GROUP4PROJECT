@@ -7,7 +7,9 @@ using GROUP4PROJECT.Configs;
 using GROUP4PROJECT.Models;
 using SqlKata.Compilers;
 using SqlKata.Execution;
+using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
+
 
 namespace GROUP4PROJECT.Controllers
 {
@@ -20,6 +22,15 @@ namespace GROUP4PROJECT.Controllers
         }
         public ActionResult Product()
         {
+            var connection = Database.GetConnection();
+            var compiler = new PostgresCompiler();
+
+            var db = new QueryFactory(connection, compiler);
+
+            IEnumerable<Product> products = db.Query("products_tbl").Where("IsDeleted", false).Get<Product>();
+
+            ViewBag.Products = products;
+
             return View();
         }
 
@@ -50,7 +61,7 @@ namespace GROUP4PROJECT.Controllers
 
             var admin = db.Query("administrators_tbl").Where("Username", username).FirstOrDefault<Administrator>();
 
-            if (string.IsNullOrEmpty(username))
+            if (admin == null)
                 {
                 return Redirect("LoginAdmin?error=wrongusername");
             }
