@@ -9,7 +9,7 @@ using SqlKata.Compilers;
 using SqlKata.Execution;
 using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
-
+using System.Diagnostics;
 
 namespace GROUP4PROJECT.Controllers
 {
@@ -20,7 +20,7 @@ namespace GROUP4PROJECT.Controllers
         {
             return View();
         }
-        public ActionResult Product()
+        public ActionResult Product(string mode, string id)
         {
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
@@ -30,6 +30,15 @@ namespace GROUP4PROJECT.Controllers
             IEnumerable<Product> products = db.Query("products_tbl").Where("IsDeleted", false).Get<Product>();
 
             ViewBag.Products = products;
+
+            if (mode == "edit" && id != null)
+            {
+                var product = db.Query("products_tbl").Where("Id", Guid.Parse(id)).Where("IsDeleted", false).First<Product>();
+                ViewBag.Product = product;
+
+                var categories = db.Query("categories_tbl").Where("IsDeleted", false).Get<Category>();
+                ViewBag.Categories = categories;
+            }
 
             return View();
         }
