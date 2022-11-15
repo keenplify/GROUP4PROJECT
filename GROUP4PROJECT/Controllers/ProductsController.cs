@@ -73,8 +73,7 @@ namespace GROUP4PROJECT.Controllers
             return Json(product);
         }
 
-        [HttpPut]
-        [HttpPatch]
+        [HttpPost]
         public ActionResult Update(Guid id, Product product)
         {
             var results = new ProductValidator(true).Validate(product);
@@ -89,7 +88,14 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-            db.Query("products_tbl").Where("Id", id).Update(product);
+            db.Query("products_tbl").Where("Id", id).Update(new
+            {
+                product.Name,
+                product.Price,
+                product.Description,
+                product.CategoryId,
+                product.ImageUrl
+            });
 
             return Json(product);
         }
