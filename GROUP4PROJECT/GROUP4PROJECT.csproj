@@ -283,6 +283,7 @@
     <Content Include="Kiosk\img\Kiosk-donutNav.png" />
     <Content Include="Kiosk\img\Kiosk-RecieptPage.png" />
     <Content Include="Kiosk\img\Logo-BeanThere-Default.svg" />
+    <Content Include="Scripts\admin-products.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
