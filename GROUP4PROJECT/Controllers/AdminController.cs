@@ -18,10 +18,14 @@ namespace GROUP4PROJECT.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            if (Session["Admin"] == null) return Redirect("/Admin/LoginAdmin");
+
             return View();
         }
         public ActionResult Product(string mode, string id)
         {
+            if (Session["Admin"] == null) return Redirect("/Admin/LoginAdmin");
+
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
 
@@ -45,10 +49,28 @@ namespace GROUP4PROJECT.Controllers
 
         public ActionResult LoginAdmin()
         {
+            Session["Admin"] = null;
             return View();
         }
-        public ActionResult EmployeeAdmin()
+        public ActionResult EmployeeAdmin(string mode, string id)
         {
+            if (Session["Admin"] == null) return Redirect("/Admin/LoginAdmin");
+
+            var connection = Database.GetConnection();
+            var compiler = new PostgresCompiler();
+
+            var db = new QueryFactory(connection, compiler);
+
+            IEnumerable<Cashier> cashiers = db.Query("cashiers_tbl").Get<Cashier>();
+
+            ViewBag.Cashiers = cashiers;
+
+            if (mode == "edit" && id != null)
+            {
+                var cashier = db.Query("cashiers_tbl").Where("Id", Guid.Parse(id)).First<Cashier>();
+                ViewBag.Cashier = cashier;
+            }
+
             return View();
         }
 

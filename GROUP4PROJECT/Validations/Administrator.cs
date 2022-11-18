@@ -14,7 +14,7 @@ namespace GROUP4PROJECT.Validations
         { 
             RuleFor(admin => admin.Username).NotEmpty();
             RuleFor(admin => admin.Password).NotEmpty();
-            RuleFor(admin => admin.Full_Name).NotEmpty();
+            RuleFor(admin => admin.FullName).NotEmpty();
         }
     }
 }

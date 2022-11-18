@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "EmployeeAdmin";
     Layout = "~/Views/Shared/NavbarAdmin.cshtml";
+    var mode = @Context.Request.QueryString["mode"];
 }
 
 <div class="container-fluid w-100">
@@ -12,116 +13,143 @@
                 <thead>
                     <tr class="bg-white ">
                         <th scope="col" class="p-3">ID</th>
-                        <th scope="col" class="p-3">Employee</th>
+                        <th scope="col" class="p-3">Employee Name</th>
                         <th scope="col" class="p-3">Username</th>
-                        <th scope="col" class="p-3">Password</th>
                         <th scope="col" class="p-3">Action</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td>Larry the Bird</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-
-
-                    </tr>
-
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>hello</td>
-                        <td class="d-flex gap-4">
-                            <a><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></a>
-                            <span class="text-danger"><a data-bs-toggle="modal" data-bs-target="#DeleteModal"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
-                        </td>
-                    </tr>
+                    @foreach (var cashier in ViewBag.Cashiers)
+                    {
+                        <tr>
+                            <td scope="row">@cashier.Id</td>
+                            <td>@cashier.FullName</td>
+                            <td>@cashier.Username</td>
+                            <td>
+                                <div class="d-flex flex-row">
+                                    @using (Html.BeginForm("EmployeeAdmin", "Admin", FormMethod.Get))
+                                    {
+                                        <input type="hidden" name="id" value="@cashier.Id" />
+                                        <input type="hidden" name="mode" value="edit" />
+                                        <button type="submit" class="btn btn-link"><span class="text-success"><i class="fa-solid fa-pen-to-square"></i></span></button>
+                                    }
+                                    <span class="text-danger btn btn-link"><a data-bs-toggle="modal" data-bs-target="#DeleteModal-@cashier.Id"><i class="fa-solid fa-trash-can" style="color:red"></i></a></span>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
 
         </div>
         <div class="col-4 sidenav d-flex flex-column min-vh-90 ">
-            <div class="input-group flex-nowrap w-75 pt-2 mb-2">
-                <span class="input-group-text bg-white border border-end-0" id="addon-wrapping"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" class="form-control border border-start-0" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
-            </div>
             <div class="container-fluid">
-
-                <h4 class="pt-3">Add Employee</h4>
-
-                <div class="mb-3 pt-4">
-                    <label for="exampleFormControlInput1" class="form-label">Employee Name</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Product Name">
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <div class="input-group flex-nowrap w-75 pt-2 mb-2">
+                        <span class="input-group-text bg-white border border-end-0" id="addon-wrapping"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" class="form-control border border-start-0" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
+                    </div>
+                    <a href="/Admin/EmployeeAdmin?mode=add" class="btn btn-success px-4">Add</a>
                 </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username">
-                </div>
+                @if (mode == "edit")
+                {
+                    using (Html.BeginForm("Update", "Cashier", FormMethod.Post))
+                    {
+                        <input type="hidden" name="redirect" value="/Admin/EmployeeAdmin" />
+                        <input type="hidden" name="id" value="@ViewBag.Cashier.Id" />
+                        <h5 class="pt-3">Edit Employee</h5>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password">
-                </div>
+                        <div class="mb-3 pt-4">
+                            <label for="employee-name" class="form-label">Employee Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="employee-name"
+                                   placeholder="Employee Name"
+                                   name="FullName"
+                                   value="@ViewBag.Cashier.FullName"
+                                   required>
+                        </div>
 
-                <div class="text-end pt-5">
-                    <button type="button" class="btn btn-success w-25">Add</button>
-                    <button type="button" class="btn btn-danger w-25">Clear</button>
-                </div>
+                        <div class="mb-3">
+                            <label for="employee-username" class="form-label">Username</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="employee-username"
+                                   placeholder="Username"
+                                   name="Username"
+                                   value="@ViewBag.Cashier.Username"
+                                   required>
+                        </div>
 
+                        <div class="text-end pt-5">
+                            <button type="submit" class="btn btn-success w-25">Edit</button>
+                            <button type="reset" class="btn btn-danger w-25">Clear</button>
+                        </div>
+                    }
+
+                    using (Html.BeginForm("ChangePassword", "Cashier", FormMethod.Post))
+                    {
+                        <input type="hidden" name="redirect" value="/Admin/EmployeeAdmin" />
+                        <input type="hidden" name="id" value="@ViewBag.Cashier.Id" />
+                        <h5 class="pt-3">Change Password</h5>
+
+                        <div class="mb-3">
+                            <label for="employee-password" class="form-label">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   name="Password"
+                                   id="employee-password" placeholder="Password">
+                        </div>
+
+                        <div class="text-end pt-5">
+                            <button type="submit" class="btn btn-success w-30">Change Password</button>
+                            <button type="reset" class="btn btn-danger w-25">Clear</button>
+                        </div>
+                    }
+                }
+                @if (mode == "add")
+                {
+                    using (Html.BeginForm("Index", "Cashier", FormMethod.Post))
+                    {
+                        <input type="hidden" name="redirect" value="/Admin/EmployeeAdmin" />
+                        <h5 class="pt-3">Edit Employee</h5>
+
+                        <div class="mb-3 pt-4">
+                            <label for="employee-name" class="form-label">Employee Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="employee-name"
+                                   placeholder="Employee Name"
+                                   name="FullName" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="employee-username" class="form-label">Username</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="employee-username"
+                                   placeholder="Username"
+                                   name="Username" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="employee-password" class="form-label">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   name="Password"
+                                   id="employee-password"
+                                   placeholder="Password">
+                        </div>
+
+                        <div class="text-end pt-5">
+                            <button type="submit" class="btn btn-success w-25">Add</button>
+                            <button type="reset" class="btn btn-danger w-25">Clear</button>
+                        </div>
+                    }
+                }
             </div>
-
-
-
         </div>
     </div>
 

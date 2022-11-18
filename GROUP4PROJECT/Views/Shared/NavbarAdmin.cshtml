@@ -1,6 +1,6 @@
-﻿
-
-
+﻿@{ 
+    var admin = @Session["Admin"] as GROUP4PROJECT.Models.Administrator;
+}
 
 <!DOCTYPE html>
 <html>
@@ -10,6 +10,7 @@
     <script src="https://kit.fontawesome.com/53a2b7f096.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/53a2b7f096.js" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/53a2b7f096.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -32,7 +33,7 @@
                         <a class="nav-link" aria-current="page" href="~/Admin/Product"><img src="~/Image/Admin-ProductNav.svg" alt="Bootstrap" width="30" height="30" /></a>
                     </li>
 
-                   
+
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="~/Admin/Index"><img src="~/Image/Admin-GraphNav.svg" alt="Bootstrap" width="30" height="30" /></a>
                     </li>
@@ -45,11 +46,11 @@
                     <li class="nav-item-end dropdown">
 
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-circle-user fa-2xl me-2"></i>Admin
+                            <i class="fa-solid fa-circle-user fa-2xl me-2"></i> @admin.FullName
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="/Admin/LoginAdmin">Logout</a></li>
 
                         </ul>
                     </li>
@@ -60,7 +61,6 @@
     </nav>
     <div class="container-fluid body-content pt-4">
         @RenderBody()
-      
     </div>
 
     @Scripts.Render("~/bundles/jquery")

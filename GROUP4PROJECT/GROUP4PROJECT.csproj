@@ -219,6 +219,7 @@
     <Compile Include="Configs\Storage.cs" />
     <Compile Include="Configs\Supabase.cs" />
     <Compile Include="Controllers\BaristaController.cs" />
+    <Compile Include="Controllers\CashierController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\KioskController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\QRCode.cs" />
+    <Compile Include="Validations\Cashier.cs" />
     <Compile Include="Validations\OrderProduct.cs" />
     <Compile Include="Validations\Order.cs" />
     <Compile Include="Validations\Category.cs" />
