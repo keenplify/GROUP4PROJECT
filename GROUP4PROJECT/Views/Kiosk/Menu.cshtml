@@ -89,7 +89,12 @@
         <div class="row">
             <div class="col-sm-1">
                 <nav class="navbar-expand-sm ">
+                    
                     <ul class="d-md-none d-lg-block nav navbar-nav flex-column" id="onLoad" style="position: fixed;">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <li><a href="#coffeeSection"><img class="mt-3" src="@category.ImageUrl" ondragstart="return false;" width="90" height="90"></li></a>
+                        }
                         <li><a href="#coffeeSection"><img class="mt-3" src="~/Kiosk/img/Kiosk-coffeeNav.png" ondragstart="return false;" width="90" height="90"></li></a>
                         <li><a href="#donutSection"><img class="mt-3" src="~/Kiosk/img/Kiosk-donutNav.png" ondragstart="return false;" width="90" height="90"></li></a>
                         <li><a href="#donut&CoffeeSection"><img class="mt-3" src="~/Kiosk/img/Kiosk-donutAndCoffeeNav.png" ondragstart="return false;" width="90" height="90"></li></a>
@@ -113,50 +118,25 @@
                         <input type="text" class="form-control border-0 border shadow-none border-start-0" id="search" autocomplete="off">
                     </div>
                     <!--End Search Bar-->
-                    <!--Coffee Section-->
-                    <div id="coffeeSection" class="container-fluid" style="padding:75px 20px;">
-                        <h3>Coffee</h3>
-                        <div class="row">
-                            <div class="col-sm-2 card p-2 ms-3 mt-3 d-flex" data-bs-toggle="modal" data-bs-target="#productDescription">
-                                <img class="img-fluid d-block mx-auto mb-2 ms-1 me-1 mt-1" src="~/Kiosk/img/Kiosk-Coffee-Selection.png">
-                                <div class="text-dark">
-                                    <h5 class="card-title">Espresso</h5><br>
-                                    <h6 class="align-self-end">120.00</h6>
-                                </div>
+                    @foreach (var category in ViewBag.Categories)
+            {   <div id="coffeeSection" class="container-fluid" style="padding:75px 20px;">
+                    <h3>@category.Name</h3>
+                    <div class="row">
+                        @foreach (var product in category.Products)
+                {
+                        <div class="col-sm-2 card p-2 ms-3 mt-3 d-flex" data-bs-toggle="modal" data-bs-target="#productDescription">
+                            <img class="img-fluid d-block mx-auto mb-2 ms-1 me-1 mt-1" src="@product.ImageUrl">
+                            <div class="text-dark">
+                                <h5 class="card-title">@product.Name</h5><br>
+                                <h6 class="align-self-end">@product.Price</h6>
                             </div>
-
                         </div>
+                }
+                        
+
                     </div>
-                    <!--End Coffee Section-->
-                    <!--Donut Section-->
-                    <div id="donutSection" class="container-fluid" style="padding:75px 20px;">
-                        <h3>Donut</h3>
-                        <div class="row">
-                            <div class="col-sm-2 card p-2 ms-3 mt-3 d-flex" data-bs-toggle="modal" data-bs-target="#productDescription">
-                                <img class="img-fluid d-block mx-auto mb-2 ms-1 me-1 mt-1" src="~/Kiosk/img/Kiosk-Donut-Selection.png">
-                                <div class="text-dark">
-                                    <h5 class="card-title">Donut</h5><br>
-                                    <h6 class="align-self-end">120.00</h6>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--End Coffee Section-->
-                    <!--Coffee&Donut Section-->
-                    <div id="donut&CoffeeSection" class="container-fluid" style="padding:75px 20px;">
-                        <h3>Coffee & Donut</h3>
-                        <div class="row">
-                            <div class="col-sm-2 card p-2 ms-3 mt-3 d-flex" data-bs-toggle="modal" data-bs-target="#productDescription">
-                                <img class="img-fluid d-block mx-auto mb-2 ms-1 me-1 mt-1" src="~/Kiosk/img/Kiosk-CoffeeDonut-Selection.png">
-                                <div class="text-dark">
-                                    <h5 class="card-title">Coffee & Donut</h5><br>
-                                    <h6 class="align-self-end">240.00</h6>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Coffee&Donut Section-->
+                </div>
+            }
 
                     </div>
                 </div>
