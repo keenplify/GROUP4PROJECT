@@ -1,0 +1,44 @@
+﻿<script defer>
+    async function handleAddCategory() {
+
+        try {
+            const uploadedImageUrl = await uploadFile("#category-image");
+
+            const formData = {
+                imageUrl: uploadedImageUrl,
+                name: $("#category-name").val(),
+            };
+
+
+            $.post('/Category/', formData, (data) => {
+                const categoriesContainer = $("#categories-container");
+
+                if (!categoriesContainer) {
+                    location.reload();
+                }
+
+                if (resetCategories) {
+                    resetCategories();
+                }
+
+                Toastify({
+                    text: "Category successfully added."
+                }).showToast();
+            }).fail((err) => handleError(err))
+        } catch (err) {
+            Toastify({
+                text: "Unable to add category."
+            }).showToast();
+        }
+    }
+</script>
+
+<div class="mb-3">
+    <label for="addCategory" class="form-label">Add Category</label>
+    <input type="text" class="form-control" id="category-name" aria-describedby="categoryHelp" placeholder="Add Category">
+    <div class="input-group mb-3">
+        <input type="file" class="form-control" id="category-image">
+        <label class="input-group-text" for="category-image">Upload</label>
+    </div>
+</div>
+<button type="button" class="btn btn-primary" onclick="handleAddCategory()">Submit</button>

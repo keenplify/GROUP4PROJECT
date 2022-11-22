@@ -9,6 +9,7 @@ using SqlKata.Compilers;
 using SqlKata.Execution;
 using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
+using System.Diagnostics;
 
 namespace GROUP4PROJECT.Controllers
 {
@@ -97,8 +98,7 @@ namespace GROUP4PROJECT.Controllers
             var compiler = new PostgresCompiler();
 
             var db = new QueryFactory(connection, compiler);
-
-            db.Query("products_tbl").Where("Id", id).Update(new { IsDeleted = true });
+            db.Query("categories_tbl").Where("Id", id).Update(new { IsDeleted = true });
 
             return Json(new
             {

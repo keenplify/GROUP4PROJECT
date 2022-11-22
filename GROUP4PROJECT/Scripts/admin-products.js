@@ -73,15 +73,16 @@ async function handleAddProduct(event) {
     }).fail((err) => handleError(err))
 }
 
-
-$(document).ready(async () => {
+async function resetCategories() {
     const categories = await $.ajax("/Category").promise();
+    CONTAINER.html("");
+
     for (const category of categories) {
         if (category.Id == CURRENT_CATEGORY.val()) {
             $("#category-btn").text(`Category - ${category.Name}`);
         }
         $(`
-        <div>
+        <div style="display: flex; gap: .5em; margin-bottom: .2em; align-items: center; ">
             <input
                 type="radio"
                 name="product-category"
@@ -92,13 +93,35 @@ $(document).ready(async () => {
                 ${CURRENT_CATEGORY.val() == category.Id ? "checked='true'" : ""}
             >
             <label for="categories-${category.Id}">${category.Name}</label>
+            <button
+                type="button"
+                style="margin-left: auto" class="btn btn-danger btn-sm"
+                onclick="handleCategoryDelete('${category.Id}')"
+            >
+                Delete
+            </button>
         </div>
         `).appendTo(CONTAINER)
     }
-})
+}
+
+$(document).ready(resetCategories)
 
 function handleCategoryClick(name) {
     $("#category-btn").text(`Category - ${name}`);
+}
+
+function handleCategoryDelete(id) {
+    const formData = {
+        id,
+    };
+
+    $.post('/Category/Delete', formData, (data) => {
+        resetCategories();
+        Toastify({
+            text: "Category successfully deleted."
+        }).showToast();
+    }).fail((err) => handleError(err))
 }
 
 // TODO - Add category form

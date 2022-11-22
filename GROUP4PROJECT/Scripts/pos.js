@@ -1,0 +1,165 @@
+﻿let container;
+let totalItemsElement;
+let totalPriceElement;
+let checkoutContainer;
+let checkoutTotalItemsElement;
+let checkoutReceivedAmountElement;
+let checkoutChangeElement;
+let checkoutCustomerNameElement;
+let cartReceivedAmountElement;
+let totalPrice = 0;
+
+function addToCart(id) {
+    let cartItems = tryParseLocalStorageObject("cartItems");
+
+    if (!cartItems) cartItems = [];
+
+    const oldCart = cartItems.find(v => v.id == id);
+
+    if (oldCart) oldCart.quantity++;
+    else cartItems.push({
+        id,
+        quantity: 1
+    })
+
+    trySaveLocalStorageObject("cartItems", cartItems);
+    updateCartView();
+}
+
+function init() {
+    checkoutContainer = document.querySelector("#checkout-container");
+    container = document.querySelector("#cart-container");
+    totalItemsElement = document.querySelector("#cart-total-items");
+    totalPriceElement = document.querySelector("#cart-total-price");
+
+    checkoutTotalItemsElement = document.querySelector("#checkout-total-items");
+    checkoutReceivedAmountElement = document.querySelector("#checkout-received-amount");
+    checkoutChangeElement = document.querySelector("#checkout-change");
+    cartReceivedAmountElement = document.querySelector("#cart-received-amount");
+    checkoutCustomerNameElement = document.querySelector("#checkout-customer-name");
+
+    updateCartView();
+}
+
+function handleDeleteModalButton(id) {
+    trySaveLocalStorageObject("toDeleteItem", id);
+}
+
+function handleDelete() {
+    const item = tryParseLocalStorageObject("toDeleteItem");
+
+    let cartItems = tryParseLocalStorageObject("cartItems");
+
+    if (!cartItems) cartItems = [];
+
+    const cartIndex = cartItems.findIndex(v => v.id == item);
+
+    if (cartIndex != -1) cartItems.splice(cartIndex, 1);
+
+    trySaveLocalStorageObject("cartItems", cartItems);
+    updateCartView();
+}
+
+async function updateCartView() {
+    const cartItems = tryParseLocalStorageObject("cartItems");
+    
+    if (!cartItems) return;
+
+    let html = "";
+    let checkoutHtml = "";
+    totalPrice = 0;
+    let totalItems = 0;
+    for (const cart of cartItems) {
+        const product = await $.ajax(`/Products/Single?id=${cart.id}`, {
+            cache: true
+        }).promise();
+        const price = (product.Price * cart.quantity)
+        totalPrice += price;
+        totalItems += cart.quantity;
+
+        html += `
+             <div class="list-group-item" style="position:relative;">
+                <div class="d-flex w-100 justify-content-between align-items-start">
+                    <span class="fw-bold">${product.Name}</span>
+                    <span class="badge bg-transparent text-black">Qty: ${cart.quantity}</span>
+                    <span>
+                        <a data-bs-toggle="modal" data-bs-target="#DeleteModal" onclick="handleDeleteModalButton('${cart.id}')">
+                            <i class="fa-solid fa-trash-can" style="color:red"></i>
+                        </a>
+                        </span>
+                </div>
+                ${cart.remarks ? `
+                    <small class="fw-light">Remarks:</small><br />
+                ` : ''}
+                <div class="d-flex justify-content-between py-1">
+                    ${cart.remarks ? `
+                        <small class="fw-lighter">${cart.remarks}</small>
+                    ` : ''}
+                    <p class="fw-bold">₱${price}</p>
+                </div>
+            </div>
+        `;
+
+        checkoutHtml += `
+            <tr>
+                <th scope="row">${product.Name}</th>
+                <td>${cart.quantity}</td>
+                <td>₱${product.Price}</td>
+                <td>₱${price}</td>
+            </tr>
+        `;
+    }
+
+    const receivedAmount = Number.parseInt(cartReceivedAmountElement.value);
+
+    container.innerHTML = html;
+    checkoutContainer.innerHTML = checkoutHtml;
+    totalPriceElement.innerHTML = `₱${totalPrice}`;
+    totalItemsElement.innerHTML = totalItems;
+    checkoutTotalItemsElement.innerHTML = totalItems;
+    checkoutReceivedAmountElement.innerHTML = `₱${receivedAmount}`;
+    checkoutChangeElement.innerHTML = `₱${receivedAmount - totalPrice}`;
+}
+
+function handleCheckout() {
+    const receivedAmount = Number.parseInt(cartReceivedAmountElement.value);
+
+    if (totalPrice == 0 || receivedAmount == 0) return Toastify({
+        text: "Invalid transaction",
+    }).showToast();
+
+    if (totalPrice > receivedAmount) return Toastify({
+        text: "Unable to checkout, insufficient received amount",
+    }).showToast();
+
+    updateCartView();
+
+    $('#CheckoutModal').modal("show");
+}
+
+async function handleFinalizeCheckout() {
+    const name = checkoutCustomerNameElement.value;
+
+    if (!name || name.length <= 0) return Toastify({
+        text: "Customer name is required.",
+    }).showToast();
+
+    let cartItems = tryParseLocalStorageObject("cartItems");
+
+    const formData = {
+        CustomerName: name,
+        Status: 'Queued',
+        OrderProducts: cartItems.map(cart => ({
+            ProductId: cart.id,
+            Quantity: cart.quantity,
+            Remarks: cart.remarks
+        }))
+    };
+
+    await $.post("/Order", formData).promise();
+
+    localStorage.removeItem("cartItems");
+    location.reload();
+}
+
+document.onload = init();

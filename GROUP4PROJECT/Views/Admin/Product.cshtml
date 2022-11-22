@@ -117,12 +117,7 @@
                                 <div class="accordion-body">
                                     <input type="hidden" id="old-product-category" value="@ViewBag.Product.CategoryId" />
                                     <div id="categories-container"></div>
-                                    <div class="mb-3">
-                                        <label for="categoryInputEmail1" class="form-label">Add Category</label>
-                                        <input type="text" class="form-control" id="categoryInputEmail1" aria-describedby="categoryHelp" placeholder="Add Category">
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    @Html.Partial("AddCategory")
                                 </div>
                             </div>
                         </div>
@@ -196,11 +191,7 @@
                             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
                                     <div id="categories-container"></div>
-                                    <div class="mb-3">
-                                        <label for="categoryInputEmail1" class="form-label">Add Category</label>
-                                        <input type="text" class="form-control" id="categoryInputEmail1" aria-describedby="categoryHelp" placeholder="Add Category">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    @Html.Partial("AddCategory")
                                 </div>
                             </div>
                         </div>

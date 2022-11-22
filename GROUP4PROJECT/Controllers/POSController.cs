@@ -17,9 +17,14 @@ namespace GROUP4PROJECT.Controllers
         // GET: POS
         public ActionResult Index()
         {
+            var connection = Database.GetConnection();
+            var compiler = new PostgresCompiler();
+
+            var db = new QueryFactory(connection, compiler);
+
+            ViewBag.Products = db.Query("products_tbl").Where("IsDeleted", false).Get<Product>();
             return View();
         }
-
 
         public ActionResult QRScanner()
         {
