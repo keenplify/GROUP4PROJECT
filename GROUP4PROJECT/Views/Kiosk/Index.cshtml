@@ -8,41 +8,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/kiosk.js"></script>
     <style>
         @@keyframes slideUpFromBottom {
             0% {
                 transform: translateY(10%);
                 opacity: 0%;
             }
+
             100% {
                 transform: translateY(0);
                 opacity: 100%;
             }
         }
+
         @@font-face {
             font-family: Product-Sans-Regular;
             src: url(../fonts/Product-Sans-Regular.ttf);
         }
-        body{
+
+        body {
             font-family: Product-Sans-Regular;
         }
-        h2{
+
+        h2 {
             animation: 0.3s ease-out 0s 1 slideUpFromBottom;
         }
+
         .card {
-            width:200px;
+            width: 200px;
             height: 225px;
             animation: 0.3s ease-out 0s 1 slideUpFromBottom;
         }
-        .btn{
+
+        .btn {
             background-color: #BC6E19;
         }
-        a {
+
+        button {
             text-decoration: none;
             color: white;
         }
-        a:hover{
+
+        a:hover {
             color: white;
         }
     </style>
@@ -54,7 +64,7 @@
     </div>
     <div class="row justify-content-center text-center mt-5">
         <div class="card btn ms-3 me-3 mt-1">
-            <a href="/Kiosk/Menu">
+            <a onclick="setup('dine-in')">
                 <img class="card-img-top mt-3" src="~/Kiosk/icon/Kiosk-Dine-In.svg" width="200" height="100" ondragstart="return false">
                 <div class="card-body mt-4">
                     <h2>Dine In</h2>
@@ -63,7 +73,7 @@
 
     </div>
     <div class="card btn me-3 ms-3 mt-1">
-        <a href="/Kiosk/Menu">
+        <a onclick="setup('take-out')">
             <img class="card-img-top mt-3" src="~/Kiosk/icon/Kiosk-Take-Out.svg" width="200" height="100" ondragstart="return false">
             <div class="card-body mt-4">
                 <h2>Take Out</h2>
