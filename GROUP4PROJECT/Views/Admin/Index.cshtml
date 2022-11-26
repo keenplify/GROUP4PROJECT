@@ -92,6 +92,8 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script type="text/javascript">
+        var json = `@Html.Raw(ViewBag.Orders)`;
+        var orders = JSON.parse(json);
 
         var barchart = document.getElementById('bar').getContext('2d');
         var mybarchart = new Chart(barchart, {

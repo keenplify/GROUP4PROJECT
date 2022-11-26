@@ -10,6 +10,7 @@ using SqlKata.Execution;
 using GROUP4PROJECT.Validations;
 using GROUP4PROJECT.Helpers;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace GROUP4PROJECT.Controllers
 {
@@ -19,6 +20,24 @@ namespace GROUP4PROJECT.Controllers
         public ActionResult Index()
         {
             if (Session["Admin"] == null) return Redirect("/Admin/LoginAdmin");
+
+            var connection = Database.GetConnection();
+            var compiler = new PostgresCompiler();
+
+            var db = new QueryFactory(connection, compiler);
+
+            IEnumerable<Order> orders = db.Query("orders_tbl").Get<Order>();
+
+            foreach (var order in orders)
+            {
+                order.OrderProducts = db.Query("order_products_tbl").Get<OrderProduct>();
+                foreach (var orderProduct in order.OrderProducts)
+                {
+                    orderProduct.Product = db.Query("products_tbl").Where("Id", orderProduct.ProductId).First<Product>();
+                }
+            }
+
+            ViewBag.Orders = JsonConvert.SerializeObject(orders);
 
             return View();
         }
@@ -79,10 +98,7 @@ namespace GROUP4PROJECT.Controllers
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                
                 return Redirect("LoginAdmin?error=incomplete");
-                //return Json(Http.JsonError(422, "The parameters are incomplete."));
-                // TODO - Handle incomplete parameters
             }
 
             var connection = Database.GetConnection();
@@ -93,10 +109,9 @@ namespace GROUP4PROJECT.Controllers
             var admin = db.Query("administrators_tbl").Where("Username", username).FirstOrDefault<Administrator>();
 
             if (admin == null)
-                {
+            {
                 return Redirect("LoginAdmin?error=wrongusername");
             }
-
 
             if (!BCrypt.Net.BCrypt.Verify(password, admin.Password))
             {
@@ -107,7 +122,6 @@ namespace GROUP4PROJECT.Controllers
 
             Session["Admin"] = admin;
             return Redirect("Product");
-            // TODO - Handle login redirection
         }
     }
 }
