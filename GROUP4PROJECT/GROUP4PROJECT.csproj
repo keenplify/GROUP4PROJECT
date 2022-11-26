@@ -228,6 +228,7 @@
     <Compile Include="Core\Model.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\POSController.cs" />
+    <Compile Include="Enums\OrderType.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -320,7 +321,6 @@
     <Content Include="Views\Admin\Product.cshtml" />
     <Content Include="Views\Shared\NavbarPos.cshtml" />
     <Content Include="Views\POS\Index.cshtml" />
-    <Content Include="Views\POS\QRScanner.cshtml" />
     <Content Include="Views\POS\LoginPOS.cshtml" />
     <Content Include="Views\Shared\NavbarCashier.cshtml" />
     <Content Include="Views\Admin\LoginAdmin.cshtml" />

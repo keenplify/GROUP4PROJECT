@@ -6,8 +6,10 @@ let checkoutTotalItemsElement;
 let checkoutReceivedAmountElement;
 let checkoutChangeElement;
 let checkoutCustomerNameElement;
+let checkoutTypeElement;
 let cartReceivedAmountElement;
 let totalPrice = 0;
+let html5QrcodeScanner;
 
 function addToCart(id) {
     let cartItems = tryParseLocalStorageObject("cartItems");
@@ -37,8 +39,15 @@ function init() {
     checkoutChangeElement = document.querySelector("#checkout-change");
     cartReceivedAmountElement = document.querySelector("#cart-received-amount");
     checkoutCustomerNameElement = document.querySelector("#checkout-customer-name");
+    checkoutTypeElement = document.querySelector("#checkout-type");
 
     updateCartView();
+}
+
+async function openScanner() {
+    await $('#QRScannerModal').modal("show").promise();
+    html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } });
+    html5QrcodeScanner.render(onScanSuccess);
 }
 
 function handleDeleteModalButton(id) {
@@ -160,6 +169,32 @@ async function handleFinalizeCheckout() {
 
     localStorage.removeItem("cartItems");
     location.reload();
+}
+
+function onScanSuccess(decodedText) {
+    const data = JSON.parse(decodedText);
+    console.log({ data });
+
+    if (data.items) {
+        trySaveLocalStorageObject("cartItems", data.items);
+    }
+
+    if (data.customerName) {
+        checkoutCustomerNameElement.value = data.customerName;
+    }
+
+    if (data.orderType) {
+        checkoutTypeElement.value = data.orderType;
+    }
+
+    updateCartView();
+
+    $('#QRScannerModal').modal("hide").promise();
+
+    return Toastify({
+        text: "Scan Successful",
+    }).showToast();
+
 }
 
 document.onload = init();

@@ -67,7 +67,9 @@ async function updateCartView() {
 
 async function generateTicket() {
     const customerName = document.querySelector("#customer-name");
-    if (customerName.value && customerName.length > 0) {
+
+    if (customerName.value && customerName.value.length > 0) {
+        console.log('customerName', customerName);
         localStorage.setItem("kioskCustomerName", customerName.value)
     }
 

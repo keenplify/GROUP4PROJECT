@@ -4,9 +4,6 @@
     Layout = "~/Views/Shared/NavbarCashier.cshtml";
 }
 
-
-
-
 <div class="container py-5">
     <div class="row">
         <div class="col-6 py-2">
@@ -23,7 +20,7 @@
             <div class=" col-md-12 rounded-5 bg-white shadow-lg p-4">
                 <img src="~/Image/LoginForm-LogoText.svg" class="img-fluid m-2" width="55" />
 
-                @using (Html.BeginForm("HandleLogin", "Cashier", FormMethod.Post))
+                @using (Html.BeginForm("HandleLogin", "POS", FormMethod.Post))
 
                 {
 

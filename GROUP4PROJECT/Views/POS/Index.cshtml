@@ -1,4 +1,8 @@
-﻿@{ ViewBag.Title = "Index"; Layout = "~/Views/Shared/NavbarPos.cshtml"; } <div class="container-fluid w-100">
+﻿@{ ViewBag.Title = "Index"; Layout = "~/Views/Shared/NavbarPos.cshtml"; }
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<div class="container-fluid w-100">
     <div class="row">
         <div class="col-9 bg-secondary bg-opacity-10">
             <div class="container py-3">
@@ -28,21 +32,25 @@
                         </div>
                     </div>
                     <div class="col-4 text-end">
-                        <a data-bs-toggle="modal" data-bs-target="#QRScannerModal">
+                        <button class="btn btn-ghost" data-bs-toggle="modal" onclick="openScanner()">
                             <i class="fa-solid fa-qrcode fa-2x"></i>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
             <div class="py-2">
                 <div class="row row-cols-1 row-cols-md-5 g-3">
                     @foreach (var product in ViewBag.Products)
-                    {<div class="col-6 col-md-3">
+                    {
+                        <div class="col-6 col-md-3">
                             <div class="card shadow-lg">
                                 @if (!string.IsNullOrEmpty(product.ImageUrl))
-                                {<div class="ratio ratio-1x1">
+                                {
+                                    <div class="ratio ratio-1x1">
                                         <img src="@product.ImageUrl" class="card-img-top">
-                                    </div>} <div class="card-body">
+                                    </div>
+                                }
+                                <div class="card-body">
                                     <p class="card-title font-weight-bold">@product.Name</p>
                                     <div class="row">
                                         <div class="col-9">
@@ -56,7 +64,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>}
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -82,23 +91,21 @@
                         </div>
                         <div class="col-5">
                             <div class="input-group input-group-sm mb-3">
-                                <input 
-                                    type="number"
-                                    step=".01"
-                                    class="form-control"
-                                    id="cart-received-amount"
-                                   value="0"
-                                >
+                                <input type="number"
+                                       step=".01"
+                                       class="form-control"
+                                       id="cart-received-amount"
+                                       value="0">
                             </div>
                         </div>
                         <div class="text-end">
-                            <button 
-                                type="button"
-                                class="btn btn-primary btn-sm"
-                                @*data-bs-toggle="modal" 
-                                data-bs-target="#CheckoutModal"*@
-                                onclick="handleCheckout()"
-                            > Checkout </button>
+                            <button type="button"
+                                    class="btn btn-primary btn-sm"
+                                    @*data-bs-toggle="modal"
+                     data-bs-target="#CheckoutModal"*@
+                                    onclick="handleCheckout()">
+                                Checkout
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -107,14 +114,16 @@
     </div>
 </div>
 <!-- QRScanner -->
-<div class="modal fade" id="QRScannerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="QRScannerModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">QRSCANNER</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">QR Scanner</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body"> ... </div>
+            <div class="modal-body">
+                <div id="reader" width="600px"></div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -149,14 +158,27 @@
             <div class="modal-footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-5">
                             <small class="fw-bold">Customer Name:</small>
                         </div>
-                        <div class="col-5">
+                        <div class="col-7">
                             <div class="input-group input-group-sm mb-3">
                                 <input type="text"
                                        class="form-control"
                                        id="checkout-customer-name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <small class="fw-bold">Type:</small>
+                        </div>
+                        <div class="col-7">
+                            <div class="input-group input-group-sm mb-3">
+                                <select class="form-select" id="checkout-type">
+                                    <option value="DineIn">Dine In</option>
+                                    <option value="TakeOut">Take Out</option>
+                                </select>
                             </div>
                         </div>
                     </div>

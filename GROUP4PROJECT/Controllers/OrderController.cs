@@ -23,7 +23,6 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
 
-
             IEnumerable<Order> orders = db.Query("orders_tbl").Get<Order>();
 
             foreach (var order in orders)
@@ -72,7 +71,8 @@ namespace GROUP4PROJECT.Controllers
             db.Query("orders_tbl").Insert(new {
                 Id = newOrderGuid,
                 order.Status,
-                order.CustomerName
+                order.CustomerName,
+                order.Type,
             });
 
             foreach (var orderProduct in order.OrderProducts)

@@ -41,7 +41,7 @@
         <div style="width: 512px">
             <canvas id="qr"></canvas>
         </div>
-        @*<img class="img-fluid mx-auto d-block mt-5" src="~/Kiosk/img/Kiosk-RecieptPage.png" width="700" ondragstart="return false">*@
+        <img class="img-fluid mx-auto d-block mt-5" src="~/Kiosk/img/Kiosk-RecieptPage.png" width="700" ondragstart="return false">
 
         <script defer>
             function init() {
@@ -51,13 +51,14 @@
                     const customerName = localStorage.getItem("kioskCustomerName");
 
                     const data = {
-                        items,
+                        items: JSON.parse(items),
                         orderType,
                         customerName
                     }
 
                     const dataJSON = JSON.stringify(data);
 
+                    console.log({ data });
                     var qr = new QRious({
                         element: document.getElementById('qr'),
                         value: dataJSON,

@@ -17,6 +17,8 @@ namespace GROUP4PROJECT.Controllers
         // GET: POS
         public ActionResult Index()
         {
+            if (Session["Cashier"] == null) return Redirect("Pos/LoginPOS");
+
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
 
@@ -26,10 +28,6 @@ namespace GROUP4PROJECT.Controllers
             return View();
         }
 
-        public ActionResult QRScanner()
-        {
-            return View();
-        }
         public ActionResult LoginPOS()
         {
             return View();
@@ -40,7 +38,7 @@ namespace GROUP4PROJECT.Controllers
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
 
-                return Redirect("LoginCashier?error=incomplete");
+                return Redirect("LoginPos?error=incomplete");
                 //return Json(Http.JsonError(422, "The parameters are incomplete."));
                 // TODO - Handle incomplete parameters
             }
@@ -54,19 +52,19 @@ namespace GROUP4PROJECT.Controllers
 
             if (cashier == null)
             {
-                return Redirect("LoginCashier?error=wrongusername");
+                return Redirect("LoginPos?error=wrongusername");
             }
 
 
             if (!BCrypt.Net.BCrypt.Verify(password, cashier.Password))
             {
 
-                return Redirect("LoginCashier?error=wrongpassword");
+                return Redirect("LoginPos?error=wrongpassword");
 
             }
 
             Session["Cashier"] = cashier;
-            return Redirect("Product");
+            return Redirect("Index");
             // TODO - Handle login redirection
         }
     }

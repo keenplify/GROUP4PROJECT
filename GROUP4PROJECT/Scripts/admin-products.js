@@ -1,10 +1,10 @@
 ﻿const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
-const CONTAINER = $("#categories-container");
-const CATEGORY = $("#category-btn");
-const CURRENT_CATEGORY = $("#old-product-category");
-const CURRENT_IMAGEURL = $("#old-imageUrl");
+let CONTAINER;
+let CATEGORY;
+let CURRENT_CATEGORY;
+let CURRENT_IMAGEURL;
 
 async function uploadFile(selector) {
     const imgFd = new FormData();
@@ -26,7 +26,7 @@ async function uploadFile(selector) {
 
 function handleError(errors) {
     if (errors.responseJSON?.errors) {
-        err.responseJSON.errors.map((err) => Toastify({
+        errors.responseJSON.errors.map((err) => Toastify({
             text: err.ErrorMessage,
             className: "alert alert-danger",
             style: {
@@ -40,6 +40,9 @@ async function handleEditProduct(event) {
     event.preventDefault();
 
     const uploadedImageUrl = await uploadFile("#product-image");
+    CURRENT_IMAGEURL = $("#old-imageUrl");
+
+    console.log({ uploadedImageUrl, val: CURRENT_IMAGEURL.val() });
 
     const formData = {
         id: params["id"],
@@ -125,3 +128,12 @@ function handleCategoryDelete(id) {
 }
 
 // TODO - Add category form
+
+function init() {
+    CONTAINER = $("#categories-container");
+    CATEGORY = $("#category-btn");
+    CURRENT_CATEGORY = $("#old-product-category");
+    CURRENT_IMAGEURL = $("#old-imageUrl");
+}
+
+document.onload = init()
