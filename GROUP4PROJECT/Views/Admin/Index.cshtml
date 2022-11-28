@@ -92,11 +92,11 @@
                 quantity: orderProduct.Quantity
             })
 
-
+            console.log(orderProduct);
             const ds = dailySales.find((ds) => {
                 return ds.day == dayjs(orderProduct.CreatedAt).format('dddd');
             });
-            if (ds) ds.value += orderProduct.Quantity;
+            if (ds) ds.value += orderProduct.Quantity * orderProduct.Product.Price;
         }
 
         for (const orderProduct of orderProductsToday) {

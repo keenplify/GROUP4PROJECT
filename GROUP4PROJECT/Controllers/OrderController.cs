@@ -16,14 +16,18 @@ namespace GROUP4PROJECT.Controllers
     public class OrderController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(bool filterDone = false)
         {
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
 
             var db = new QueryFactory(connection, compiler);
 
-            IEnumerable<Order> orders = db.Query("orders_tbl").Get<Order>();
+            var query = db.Query("orders_tbl");
+
+            if (filterDone) query.Where("Status", "!=", "Done");
+
+            IEnumerable<Order> orders = query.Get<Order>();
 
             foreach (var order in orders)
             {
@@ -34,7 +38,7 @@ namespace GROUP4PROJECT.Controllers
                     orderProduct.Product = db.Query("products_tbl").Where("Id", orderProduct.ProductId).First<Product>();
                 }
             }
-
+            connection.Close();
             return Json(orders, JsonRequestBehavior.AllowGet);
         }
 
@@ -61,9 +65,6 @@ namespace GROUP4PROJECT.Controllers
             {
                 return Json(Http.ValidationErrors(results.Errors));
             }
-            Debug.WriteLine("order");
-            Debug.WriteLine(order.Type);
-
 
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();
@@ -102,7 +103,7 @@ namespace GROUP4PROJECT.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(Guid id, Order order)
+        public ActionResult UpdateStatus(Guid id, Order order)
         {
             var results = new OrderValidator(true).Validate(order);
 
@@ -117,7 +118,7 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             db.Query("orders_tbl").Where("Id", id).Update(new {
-                order.CustomerName
+                order.Status,
             });
 
             return Json(order);

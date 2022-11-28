@@ -13,7 +13,7 @@
                 <thead>
                     <tr class="bg-white ">
                         <th scope="col" class="p-3">
-                            <div class="dropdown">
+                            @*<div class="dropdown">
                                 <button class="btn btn-sm btn-transparent dropdown-toggle fw-bold" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
                                     All Category
                                 </button>
@@ -24,7 +24,7 @@
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Separated link</a></li>
                                 </ul>
-                            </div>
+                            </div>*@
 
 
                         </th>
@@ -66,12 +66,12 @@
 
         </div>
         <div class="col-4 sidenav d-flex flex-column min-vh-90 ">
-            <div class="d-flex flex-row justify-content-between align-items-center">
-                <div class="input-group flex-nowrap w-75 pt-2 mb-2">
+            <div class="d-flex flex-row justify-content-between align-items-center my-2">
+                @*<div class="input-group flex-nowrap w-75 pt-2 mb-2">
                     <span class="input-group-text bg-white border border-end-0" id="addon-wrapping"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
                     <input type="text" class="form-control border border-start-0" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
-                </div>
-                <a href="/Admin/Product?mode=add" class="btn btn-success px-4">Add</a>
+                </div>*@
+                <a href="/Admin/Product?mode=add" class="btn btn-success px-4 ms-auto">Add</a>
             </div>
 
             @if (mode == "edit")

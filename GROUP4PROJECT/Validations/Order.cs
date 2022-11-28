@@ -5,11 +5,17 @@ namespace GROUP4PROJECT.Validations
 {
     public class OrderValidator : AbstractValidator<Models.Order>
     {
-        public OrderValidator(bool isPartial = false)
+        public OrderValidator(bool isStatusOnly = false)
         {
-            RuleFor(order => order.Status).IsEnumName(typeof(OrderStatus));
-            RuleFor(order => order.Type).IsEnumName(typeof(OrderType));
-            RuleForEach(order => order.OrderProducts).SetValidator(new OrderProductValidator()).NotEmpty();
+            if (isStatusOnly)
+            {
+                RuleFor(order => order.Status).IsEnumName(typeof(OrderStatus));
+            } else
+            {
+                RuleFor(order => order.Status).IsEnumName(typeof(OrderStatus));
+                RuleFor(order => order.Type).IsEnumName(typeof(OrderType));
+                RuleForEach(order => order.OrderProducts).SetValidator(new OrderProductValidator()).NotEmpty();
+            }
         }
     }
 }

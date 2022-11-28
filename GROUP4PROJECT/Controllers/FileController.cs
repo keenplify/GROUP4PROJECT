@@ -12,11 +12,8 @@ namespace GROUP4PROJECT.Controllers
 
     {
         [HttpPost]
-        public async Task<ActionResult> Upload(HttpPostedFileBase file)
+        public async Task<ActionResult> UploadOnline(HttpPostedFileBase file)
         {
-            Debug.WriteLine(file.ContentLength);
-            Debug.WriteLine(file.FileName);
-            Debug.WriteLine(file.ContentType);
             try
             {
                 if (file.ContentLength > 0)
@@ -44,6 +41,39 @@ namespace GROUP4PROJECT.Controllers
                     });
 
                 } else
+                {
+                    return Json(Http.JsonError(412, "File has no content!"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return Json(Http.JsonError(412, "Unable to upload image"));
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file.ContentLength > 0)
+                {
+                    string ext = Path.GetExtension(file.FileName);
+                    string _FileName = Guid.NewGuid().ToString() + ext;
+                    string _path = Path.Combine(Server.MapPath("~/UploadedFiles"), _FileName);
+                    file.SaveAs(_path);
+
+                    Uri url = new Uri(Request.Url.OriginalString);
+                    string output = url.GetLeftPart(UriPartial.Authority);
+                    Debug.WriteLine(output);
+
+                    return Json(new
+                    {
+                        url = output + "/UploadedFiles/" + _FileName
+                    });
+                }
+                else
                 {
                     return Json(Http.JsonError(412, "File has no content!"));
                 }
