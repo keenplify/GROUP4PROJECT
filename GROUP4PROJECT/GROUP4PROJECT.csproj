@@ -333,6 +333,8 @@
     <Content Include="Views\Shared\_Blank.cshtml" />
     <Content Include="Views\Barista\Index.cshtml" />
     <Content Include="Views\Shared\AddCategory.cshtml" />
+    <Content Include="Views\Kiosk\PrintableReceipt.cshtml" />
+    <Content Include="Views\POS\PrintableReceipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

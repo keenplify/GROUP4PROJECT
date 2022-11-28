@@ -67,5 +67,11 @@ namespace GROUP4PROJECT.Controllers
             return Redirect("Index");
             // TODO - Handle login redirection
         }
+
+        public ActionResult PrintableReceipt()
+        {
+            return View();
+        }
+
     }
 }

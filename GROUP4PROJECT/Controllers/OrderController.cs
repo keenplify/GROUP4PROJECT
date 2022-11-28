@@ -56,10 +56,14 @@ namespace GROUP4PROJECT.Controllers
         {
             var results = new OrderValidator().Validate(order);
 
+
             if (!results.IsValid)
             {
                 return Json(Http.ValidationErrors(results.Errors));
             }
+            Debug.WriteLine("order");
+            Debug.WriteLine(order.Type);
+
 
             var connection = Database.GetConnection();
             var compiler = new PostgresCompiler();

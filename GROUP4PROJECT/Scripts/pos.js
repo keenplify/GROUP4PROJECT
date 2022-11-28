@@ -147,11 +147,7 @@ function handleCheckout() {
 }
 
 async function handleFinalizeCheckout() {
-    const name = checkoutCustomerNameElement.value;
-
-    if (!name || name.length <= 0) return Toastify({
-        text: "Customer name is required.",
-    }).showToast();
+    const name = checkoutCustomerNameElement?.value;
 
     let cartItems = tryParseLocalStorageObject("cartItems");
 
@@ -161,13 +157,34 @@ async function handleFinalizeCheckout() {
         OrderProducts: cartItems.map(cart => ({
             ProductId: cart.id,
             Quantity: cart.quantity,
-            Remarks: cart.remarks
-        }))
+            Remarks: cart.remarks,
+        })),
+        Type: checkoutTypeElement.value
     };
 
     await $.post("/Order", formData).promise();
 
+    let cIs = [];
+
+    for (const cI of cartItems) {
+        const product = await $.ajax(`/Products/Single?id=${cI.id}`, {
+            cache: true
+        }).promise();
+        const price = (product.Price * cI.quantity)
+
+        cIs.push({ ...cI, ...product, price });
+    }
+
+    let receiptData = {
+        name,
+        type: checkoutTypeElement.value,
+        cartItems: cIs
+    }
+
+    console.log(receiptData);
+
     localStorage.removeItem("cartItems");
+    window.open("/POS/PrintableReceipt?data=" + encodeURIComponent(JSON.stringify(receiptData)), '_blank').focus();
     location.reload();
 }
 

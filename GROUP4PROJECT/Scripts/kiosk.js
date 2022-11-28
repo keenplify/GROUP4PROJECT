@@ -10,7 +10,7 @@ function showProductModal(json) {
     const modal = document.querySelector("#product-modal");
     const product = JSON.parse(json);
     document.querySelector("#product-name").innerHTML = product.Name;
-    document.querySelector("#product-price").innerHTML = product.Price;
+    document.querySelector("#product-price").innerHTML = `₱${product.Price}`;
     document.querySelector("#product-description").innerHTML = product.Description;
     document.querySelector("#product-image").src = product.ImageUrl;
     document.querySelector("#product-id").value = product.Id;
