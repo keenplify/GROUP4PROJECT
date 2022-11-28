@@ -7,7 +7,7 @@ namespace GROUP4PROJECT.Validations
     {
         public OrderValidator(bool isPartial = false)
         {
-            RuleFor(order => order.CustomerName).NotEmpty().MinimumLength(1).MaximumLength(20);
+            RuleFor(order => order.CustomerName).NotEmpty().MinimumLength(1).MaximumLength(50);
             RuleFor(order => order.Status).IsEnumName(typeof(OrderStatus));
             RuleFor(order => order.Type).IsEnumName(typeof(OrderType));
             RuleForEach(order => order.OrderProducts).SetValidator(new OrderProductValidator()).NotEmpty();

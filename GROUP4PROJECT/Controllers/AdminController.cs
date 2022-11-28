@@ -37,6 +37,7 @@ namespace GROUP4PROJECT.Controllers
                 }
             }
 
+
             ViewBag.Orders = JsonConvert.SerializeObject(orders);
 
             return View();

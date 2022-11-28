@@ -13,22 +13,13 @@
 
 <body class="bg-secondary bg-opacity-10">
 
-   
+
     <div class="container justify-content-center py-3">
 
         <div class="row">
             <div class="col-lg-6">
                 <h4>Sales Performance</h4>
             </div>
-            <div class="col-lg-4">
-                <div class="input-group flex-nowrap ">
-                    <span class="input-group-text bg-white border border-end-0" id="addon-wrapping"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-control border border-start-0" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
-                </div>
-            </div>
-
-            
-
         </div>
     </div>
 
@@ -39,29 +30,12 @@
                     <div class="row">
                         <div class="col-md-8">
 
-                            <h5>Top Selling Product</h5>
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="dropdown-menu-end">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Monthly
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Monthly</a></li>
-                                        <li><a class="dropdown-item" href="#">Weekly</a></li>
-
-                                    </ul>
-                                </div>
-                            </div>
+                            <h5>Total Daily Sales</h5>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <canvas class=" p-3 h-25" id="bar"></canvas>
-                  
+                    <canvas class=" p-3 h-25" id="TotalDailySales"></canvas>
                 </div>
             </div>
             <br />
@@ -70,20 +44,20 @@
         </div>
         <div class="col-sm-3">
             <div class="card">
-           
-                <div class=" text-center pt-4"><h5>Top Selling Product</h5></div>
+
+                <div class=" text-center pt-4"><h5>Top Selling Products</h5></div>
                 <div class="card-body ">
-                    <canvas class="h-25" id="pie"></canvas>
+                    <canvas class="h-25" id="TopSellingProducts"></canvas>
                 </div>
             </div>
 
         </div>
         <div class="col-sm-3">
             <div class="card">
-     
-                <div class=" text-center pt-4"><h5>Order Todays</h5></div>
+
+                <div class=" text-center pt-4"><h5>Orders Today</h5></div>
                 <div class="card-body">
-                    <canvas class="h-25" id="Spie"></canvas>
+                    <canvas class="h-25" id="OrdersTodayPie"></canvas>
 
                 </div>
             </div>
@@ -91,79 +65,87 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.6/dayjs.min.js" integrity="sha512-hcV6DX35BKgiTiWYrJgPbu3FxS6CsCjKgmrsPRpUPkXWbvPiKxvSVSdhWX0yXcPctOI2FJ4WP6N1zH+17B/sAA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.6/plugin/timezone.min.js" integrity="sha512-fG1tT/Wn/ZOyH6/Djm8HQBuqvztPQdK/vBgNFLx6DQVt3yYYDPN3bXnGZT4z4kAnURzGQwAnM3CspmhLJAD/5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript">
+        const randomColor = () => '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
         var json = `@Html.Raw(ViewBag.Orders)`;
         var orders = JSON.parse(json);
 
-        var barchart = document.getElementById('bar').getContext('2d');
+        const allOrderProducts = orders.map(order => order.OrderProducts).flat().filter((v, i, a) => a.findIndex(v2 => (v2.Id === v.Id)) === i);
+        console.log({ allOrderProducts });
+        const orderProductsToday = allOrderProducts.filter((op) => dayjs(op.CreatedAt).isAfter(dayjs().startOf('day')));
+
+        let ordersToday = [];
+        let topSellingProducts = [];
+        let dailySales = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'].map((day) => ({
+            day,
+            value: 0
+        }))
+
+        for (const orderProduct of allOrderProducts) {
+            const topSellingProduct = topSellingProducts.find(tsp => tsp.name == orderProduct.Product.Name);
+
+            if (topSellingProduct) topSellingProduct.quantity += orderProduct.Quantity;
+            else topSellingProducts.push({
+                name: orderProduct.Product.Name,
+                quantity: orderProduct.Quantity
+            })
+
+
+            const ds = dailySales.find((ds) => {
+                return ds.day == dayjs(orderProduct.CreatedAt).format('dddd');
+            });
+            if (ds) ds.value += orderProduct.Quantity;
+        }
+
+        for (const orderProduct of orderProductsToday) {
+            const product = ordersToday.find(p => p.name == orderProduct.Product.Name);
+
+            if (product) ordersToday.quantity += orderProduct.Quantity;
+            else ordersToday.push({
+                name: orderProduct.Product.Name,
+                quantity: orderProduct.Quantity
+            })
+        }
+
+        var barchart = document.getElementById('TotalDailySales').getContext('2d');
         var mybarchart = new Chart(barchart, {
             type: 'bar',
             data: {
-                labels: ['MON1', 'TUE2', 'WED3', 'THU4', 'FRI5', 'SAT6', 'SUN7'],
+                labels: dailySales.map(ds => ds.day),
                 datasets: [{
-                    label: 'Bar Chart',
-                    data: [1000, 200, 400, 600, 800, 300, 900],
-                    backgroundColor: '#BC6E19'
+                    label: 'Daily Sales',
+                    data: dailySales.map(ds => ds.value),
+                    backgroundColor: dailySales.map(() => randomColor())
                 }]
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
         })
 
-        var piechart = document.getElementById('pie').getContext('2d');
+        var piechart = document.getElementById('TopSellingProducts').getContext('2d');
         var mypiechart = new Chart(piechart, {
             type: 'doughnut',
             data: {
-                labels: ['001', '002',],
+                labels: topSellingProducts.map(ot => ot.name),
                 datasets: [{
-                    label: 'doughnut Chart',
-                    data: [100, 200],
-                    backgroundColor: ['#BC6E19'],
-
-
-
-
+                    label: 'Top Selling Products',
+                    data: topSellingProducts.map(ot => ot.quantity),
+                    backgroundColor: topSellingProducts.map(() => randomColor())
                 }]
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
         })
 
-        var piechart = document.getElementById('Spie').getContext('2d');
-        var mypiechart = new Chart(piechart, {
+        var piechart = document.getElementById('OrdersTodayPie').getContext('2d');
+        var mypiechart2 = new Chart(piechart, {
             type: 'doughnut',
             data: {
-                labels: ['001', '002',],
+                labels: ordersToday.map(ot => ot.name),
                 datasets: [{
-                    label: 'Doughnut Chart',
-                    data: [100, 200],
-                    backgroundColor: '#BC6E19'
-
+                    label: 'Orders Today',
+                    data: ordersToday.map(ot => ot.quantity),
+                    backgroundColor: ordersToday.map(() => randomColor())
                 }]
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
         })
 
 
