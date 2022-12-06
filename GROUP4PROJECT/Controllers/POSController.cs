@@ -25,6 +25,9 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             ViewBag.Products = db.Query("products_tbl").Where("IsDeleted", false).Get<Product>();
+
+            connection.Close();
+
             return View();
         }
 
@@ -64,6 +67,9 @@ namespace GROUP4PROJECT.Controllers
             }
 
             Session["Cashier"] = cashier;
+
+            connection.Close();
+
             return Redirect("Index");
             // TODO - Handle login redirection
         }

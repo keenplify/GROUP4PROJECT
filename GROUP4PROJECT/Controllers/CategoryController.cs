@@ -30,6 +30,9 @@ namespace GROUP4PROJECT.Controllers
                 category.Products = db.Query("products_tbl").Where("CategoryId", category.Id).Get<Product>();
             }
 
+            connection.Close();
+
+
             return Json(categories, JsonRequestBehavior.AllowGet);
         }
 
@@ -43,6 +46,7 @@ namespace GROUP4PROJECT.Controllers
 
             var category = db.Query("categories_tbl").Where("Id", id).Where("IsDeleted", false).First<Category>();
             category.Products = db.Query("categories_tbl").Where("CategoryId", category.Id).Get<Product>();
+            connection.Close();
 
             return Json(category, JsonRequestBehavior.AllowGet);
         }
@@ -67,6 +71,7 @@ namespace GROUP4PROJECT.Controllers
                 category.Name,
                 category.ImageUrl,
             });
+            connection.Close();
 
             return Json(category);
         }
@@ -87,6 +92,7 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             db.Query("products_tbl").Where("Id", id).Update(product);
+            connection.Close();
 
             return Json(product);
         }
@@ -99,6 +105,7 @@ namespace GROUP4PROJECT.Controllers
 
             var db = new QueryFactory(connection, compiler);
             db.Query("categories_tbl").Where("Id", id).Update(new { IsDeleted = true });
+            connection.Close();
 
             return Json(new
             {

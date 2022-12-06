@@ -51,6 +51,7 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             var order = db.Query("orders_tbl").Where("Id", id).First<Order>();
+            connection.Close();
 
             return Json(order, JsonRequestBehavior.AllowGet);
         }
@@ -98,6 +99,7 @@ namespace GROUP4PROJECT.Controllers
             {
                 orderProduct.Product = db.Query("products_tbl").Where("Id", orderProduct.ProductId).First<Product>();
             }
+            connection.Close();
 
             return Json(newOrder);
         }
@@ -120,6 +122,7 @@ namespace GROUP4PROJECT.Controllers
             db.Query("orders_tbl").Where("Id", id).Update(new {
                 order.Status,
             });
+            connection.Close();
 
             return Json(order);
         }
@@ -133,6 +136,7 @@ namespace GROUP4PROJECT.Controllers
             var db = new QueryFactory(connection, compiler);
 
             db.Query("orders_tbl").Where("Id", id).Delete();
+            connection.Close();
 
             return Json(new
             {

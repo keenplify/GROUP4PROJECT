@@ -63,6 +63,7 @@ namespace GROUP4PROJECT.Controllers
                 var categories = db.Query("categories_tbl").Where("IsDeleted", false).Get<Category>();
                 ViewBag.Categories = categories;
             }
+            connection.Close();
 
             return View();
         }
@@ -90,6 +91,9 @@ namespace GROUP4PROJECT.Controllers
                 var cashier = db.Query("cashiers_tbl").Where("Id", Guid.Parse(id)).First<Cashier>();
                 ViewBag.Cashier = cashier;
             }
+
+            connection.Close();
+
 
             return View();
         }
@@ -122,6 +126,9 @@ namespace GROUP4PROJECT.Controllers
             }
 
             Session["Admin"] = admin;
+
+            connection.Close();
+
             return Redirect("Product");
         }
     }

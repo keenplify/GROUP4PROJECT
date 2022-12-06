@@ -29,6 +29,8 @@ namespace GROUP4PROJECT.Controllers
                 product.Category = db.Query("categories_tbl").Where("Id", product.CategoryId).First<Category>();
             }
 
+            connection.Close();
+
             return Json(products, JsonRequestBehavior.AllowGet);
         }
 
@@ -42,6 +44,7 @@ namespace GROUP4PROJECT.Controllers
 
             var product = db.Query("products_tbl").Where("Id", id).Where("IsDeleted", false).First<Product>();
             product.Category = db.Query("categories_tbl").Where("Id", product.CategoryId).First<Category>();
+            connection.Close();
 
             return Json(product, JsonRequestBehavior.AllowGet);
         }
@@ -69,6 +72,7 @@ namespace GROUP4PROJECT.Controllers
                 product.CategoryId,
                 product.ImageUrl
             });
+            connection.Close();
 
             return Json(product);
         }
@@ -96,6 +100,7 @@ namespace GROUP4PROJECT.Controllers
                 product.CategoryId,
                 product.ImageUrl
             });
+            connection.Close();
 
             return Json(product);
         }
@@ -114,6 +119,7 @@ namespace GROUP4PROJECT.Controllers
             {
                 return Redirect(redirect);
             }
+            connection.Close();
 
             return Json(new
             {

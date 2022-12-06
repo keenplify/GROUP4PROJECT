@@ -35,6 +35,9 @@ namespace GROUP4PROJECT.Controllers
                 category.Products = db.Query("products_tbl").Where("CategoryId", category.Id).Where("IsDeleted", false).Get<Product>();
             }
             ViewBag.Categories = categories;
+
+            connection.Close();
+
             return View();
         }
 

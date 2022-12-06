@@ -46,6 +46,9 @@ namespace GROUP4PROJECT.Controllers
                 return Redirect(redirect);
             }
 
+            connection.Close();
+
+
             return Json(cashier);
         }
 
@@ -67,6 +70,9 @@ namespace GROUP4PROJECT.Controllers
                 return Redirect(redirect);
             }
 
+            connection.Close();
+
+
             return Json(cashier);
         }
 
@@ -87,6 +93,9 @@ namespace GROUP4PROJECT.Controllers
             {
                 return Redirect(redirect);
             }
+
+            connection.Close();
+
 
             return Json(new { message = "Successful" });
         }
