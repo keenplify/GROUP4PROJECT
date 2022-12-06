@@ -12,7 +12,7 @@ namespace GROUP4PROJECT.Controllers
 
     {
         [HttpPost]
-        public async Task<ActionResult> UploadOnline(HttpPostedFileBase file)
+        public async Task<ActionResult> Upload(HttpPostedFileBase file)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace GROUP4PROJECT.Controllers
         }
 
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase file)
+        public ActionResult UploadOffline(HttpPostedFileBase file)
         {
             try
             {
