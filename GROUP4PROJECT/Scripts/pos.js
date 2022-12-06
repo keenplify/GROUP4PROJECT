@@ -47,7 +47,7 @@ function init() {
 async function openScanner() {
     await $('#QRScannerModal').modal("show").promise();
     html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: { width: 250, height: 250 } });
-    html5QrcodeScanner.render(onScanSuccess);
+    html5QrcodeScanner.render((data) => debounce(onScanSuccess(data), 5000));
 }
 
 function handleDeleteModalButton(id) {
@@ -186,6 +186,14 @@ async function handleFinalizeCheckout() {
     localStorage.removeItem("cartItems");
     window.open("/POS/PrintableReceipt?data=" + encodeURIComponent(JSON.stringify(receiptData)), '_blank').focus();
     location.reload();
+}
+
+function debounce(func, timeout = 300) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
 }
 
 function onScanSuccess(decodedText) {
