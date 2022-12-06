@@ -86,7 +86,7 @@ async function poll() {
 
 function init() {
     poll();
-    setInterval(poll, 5000); //Poll every 5 seconds;
+    setInterval(poll, 15000); //Poll every 10 seconds;
 }
 
 document.onload = init();
